@@ -1,0 +1,8 @@
+grid/grid
+smooth/smooth
+region/region
+bench/navbench_*
+bench/control
+bench/cache
+bench/measurements/
+__pycache__/
