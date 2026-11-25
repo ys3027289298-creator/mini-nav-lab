@@ -1,0 +1,6 @@
+case,r_m,theta_deg,h_m,h_eff_m,d_over_h_eff,expressible_W/h>2,worst_misjudge_at_W=d,node_ratio_vs_baseline,pass_misjudge_1pct,pass_node_50pct,pass_all
+baseline r=.40 theta=30 h=.25,0.4,30.0,0.25,0.2887,2.771,1,0.0,1.0,1,1,1
+radius +1档 r=.50,0.5,30.0,0.25,0.2887,3.464,1,0.0,1.0,1,1,1
+slope +1档 theta=40,0.4,40.0,0.25,0.3264,2.451,1,0.0,1.0,1,1,1
+h +1档(放宽) h=.50,0.4,30.0,0.5,0.5774,1.386,0,0.6144,0.25,0,1,0
+h -1档(加细) h=.20,0.4,30.0,0.2,0.2309,3.464,1,0.0,1.562,1,0,0
