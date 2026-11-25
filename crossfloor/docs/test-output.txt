@@ -1,0 +1,75 @@
+$ make test
+data_file_loaded=1
+dims_23_19_3=1
+four_shafts_from_circles=1
+twelve_connection_points=1
+eight_vertical_links=1
+three_named_cases=1
+walls_parsed_f0=1
+wall_door_f2=1
+three_cases_found_and_valid=1
+c1_2f_to_1f_uses_one_stair=1
+c2_short_uses_flat_only=1
+c3_bridge_uses_two_stairs=1
+c3_stair_below_break_even=1
+c3_flat_above_break_even=1
+c2_stair_below_8=1
+c2_flat_above_8=1
+small_lambda_overuses_stairs=1
+large_lambda_abandons_bridge=1
+small_lambda_deviation_flagged=1
+large_lambda_deviation_flagged=1
+cap_rejected=1
+3f_to_1f_two_links=1
+survey_20_people=1
+tau_cell_0p714=1
+lambda_star_1381=1
+lambda_up_1579=1
+lambda_down_1182=1
+sample_rates_20_0_17=1
+c3_population_deviation_reported=1
+baffle_ground_len_50=1
+baffle_sample_rate_20_of_20=1
+corpus_120=1
+corpus_deterministic=1
+corpus_ground_connected_at_high_lambda=1
+corpus_mean_len_sane=1
+parser_missing_h_rejected=1
+parser_bad_char_rejected=1
+tiny_straight_found=1
+tiny_wall_unreachable=1
+checks=39 failures=0 all_ok=1
+
+$ ./crossfloor accept data/floors.txt data/survey.txt
+# crossfloor accept report
+cell_m=1.000 flat_speed_mps=1.400 tau_flat_cell_s=0.7143
+cost_expression: C = N_flat*1 + sum(lambda_dir); lambda = T_stair/tau_cell = v_flat*T_stair/h
+stair_up_mean_s=11.280 lambda_up_cells=15.7920
+stair_down_mean_s=8.445 lambda_down_cells=11.8230
+stair_avg_mean_s=9.8625 lambda_star_cells=13.8075 lambda_star_hundredths=1381
+
+# one run per case at lambda_star
+RUN case=C1_2F_to_1F_opposite run_count=1 found=1 stair_selected=1 weighted_cost_cells=30.81 flat_edges=17 vertical_links=1 path_nodes=19 shafts=(18,9) sketch_expect_stair=1 expectation_met=1
+RUN case=C2_3F_wall_popover run_count=1 found=1 stair_selected=0 weighted_cost_cells=20.00 flat_edges=20 vertical_links=0 path_nodes=21 sketch_expect_stair=0 expectation_met=1
+RUN case=C3_1F_switchback_bridge run_count=1 found=1 stair_selected=1 weighted_cost_cells=45.62 flat_edges=18 vertical_links=2 path_nodes=21 shafts=(4,9)-(18,9) sketch_expect_stair=1 expectation_met=1
+
+selected_stairs=2 of 3 expected=2
+rate_match scope=acceptance expected_rate=0.6667 actual_stair_selection_rate=0.6667 deviation=0.0000 tol=0.10
+acceptance_consistent=1
+
+# per-person measured-ratio selection rates (actual, not Monte Carlo)
+SAMPLE_RATE case=C1_2F_to_1F_opposite expected_rate=1.00 actual_selection_rate=20/20=1.0000 deviation=0.0000
+rate_match scope=population case=C1_2F_to_1F_opposite expected_rate=1.0000 actual_stair_selection_rate=1.0000 deviation=0.0000 tol=0.10
+SAMPLE_RATE case=C2_3F_wall_popover expected_rate=0.00 actual_selection_rate=0/20=0.0000 deviation=0.0000
+rate_match scope=population case=C2_3F_wall_popover expected_rate=0.0000 actual_stair_selection_rate=0.0000 deviation=0.0000 tol=0.10
+SAMPLE_RATE case=C3_1F_switchback_bridge expected_rate=1.00 actual_selection_rate=17/20=0.8500 deviation=0.1500
+RATE_DEVIATION scope=population case=C3_1F_switchback_bridge expected_rate=1.0000 actual_stair_selection_rate=0.8500 actual_selection_rate=0.8500 k=17 n=20 deviation=0.1500 tol=0.10
+
+# coefficient trade-off controls (same 3 cases, sweep endpoints)
+control lambda=3.0 actual_stair_selection_rate=3/3=1.0000
+RATE_DEVIATION scope=control_small_lambda=3 expected_rate=0.6667 actual_stair_selection_rate=1.0000 actual_selection_rate=1.0000 k=3 n=3 deviation=0.3333 tol=0.10
+control lambda=40.0 actual_stair_selection_rate=1/3=0.3333
+RATE_DEVIATION scope=control_large_lambda=40 expected_rate=0.6667 actual_stair_selection_rate=0.3333 actual_selection_rate=0.3333 k=1 n=3 deviation=0.3333 tol=0.10
+
+# quantified level fix for C3 population deviation
+c3_break_even_lambda=15.0000; baffle F0(11,4) raises ground detour 48->50, break-even ->16.0000; worst measured lambda=15.82 -> sample rate 20/20=1.0000

@@ -1,0 +1,27 @@
+# survey.txt — 上下楼与平地实际耗时标定（显式测量输入，可整体替换）
+# 没有随题面提供实测值；这里给出一组可审计的测量样本。
+# cell_m: 平面图一格对应的实际边长(米)
+# flat_speed_mps: 实测正常步行平均速度(米/秒)
+# person <上楼秒/层> <下楼秒/层>，每名受试者同一部楼梯各计时一次
+cell_m 1.0
+flat_speed_mps 1.4
+person 10.8 8.2
+person 11.4 8.6
+person 10.2 7.6
+person 12.1 9.0
+person 11.0 8.1
+person 12.6 9.4
+person 9.8 7.2
+person 11.7 8.8
+person 10.5 7.9
+person 12.3 9.1
+person 11.2 8.4
+person 13.0 9.6
+person 10.0 7.5
+person 11.5 8.7
+person 10.9 8.0
+person 12.5 9.3
+person 10.4 7.8
+person 11.8 8.9
+person 10.6 8.3
+person 11.3 8.5
