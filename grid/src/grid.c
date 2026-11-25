@@ -1,6 +1,7 @@
 
 /* grid: walkability map and 4-neighbour A* search. */
 #include <stdio.h>
+#include <stdlib.h>
 #include <string.h>
 #include <math.h>
 

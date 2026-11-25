@@ -1,6 +1,7 @@
 
 /* smooth: line-of-sight test and path smoothing. */
 #include <stdio.h>
+#include <stdlib.h>
 #include <string.h>
 #include <math.h>
 
