@@ -1,0 +1,56 @@
+# derived slice budget B*=15 frame_work_cap=16384 wcrt_bound=14 frames hitch_wc(B*)=15808 units
+table_25_cells_defined=1
+table_has_6_edges=1
+delta_edges_exact=1
+exhaustive_sequences_depth6_closed=1
+fuzz_200k_sequences_no_sixth_state=1
+fuzz_terminal_states_absorbing=1
+enter_queued=1
+queued_stray_goal_ignored=1
+leave_queued=1
+wcrt_queued_lifecycle=1
+expanding_budget_self_loop=1
+enter_expanding=1
+leave_expanding=1
+wcrt_expanding_pocket=1
+enter_found=1
+found_refuses_all_triggers=1
+found_path_correct=1
+leave_found=1
+reap_fires_once=1
+wcrt_found=1
+enter_unreachable=1
+unreachable_refuses_all_triggers=1
+leave_unreachable=1
+wcrt_unreachable=1
+timing case=unreachable state=UNREACHABLE actual_frames=14 bound_frames=14 actual_wall_us=12.2 hitch_max=2221 cap=16384 pops=189
+enter_canceled=1
+canceled_refuses_all_triggers=1
+leave_canceled=1
+wcrt_cancel_queued=1
+cancel_from_expanding_edge=1
+wcrt_cancel_expanding=1
+all_six_edges_exercised=1
+slice_sweep_192_budgets_within_bounds=1
+pocket_pops_match_structural_bound=1
+slice_decision_is_max_b_under_cap=1
+derived_bstar_15_bound_14=1
+bstar_hitch_under_cap=1
+curve sample (B: bound_frames / hitch_wc / measured_hitch):
+  B=  1 wcrt=193 frames hitch_wc=  1472 measured_hitch=   800
+  B=  2 wcrt= 97 frames hitch_wc=  2496 measured_hitch=   800
+  B=  4 wcrt= 49 frames hitch_wc=  4544 measured_hitch=   800
+  B=  8 wcrt= 25 frames hitch_wc=  8640 measured_hitch=  1244
+  B= 15 wcrt= 14 frames hitch_wc= 15808 measured_hitch=  2221  <- B*
+  B= 16 wcrt= 13 frames hitch_wc= 16832 measured_hitch=  2094
+  B= 32 wcrt=  7 frames hitch_wc= 33216 measured_hitch=  4130
+  B= 64 wcrt=  4 frames hitch_wc= 65984 measured_hitch=  7189
+  B=128 wcrt=  3 frames hitch_wc=131520 measured_hitch= 13480
+  B=192 wcrt=  2 frames hitch_wc=197056 measured_hitch= 19887
+random_corpus_4000_within_wcrt_and_cap=1
+overrun_stall_reports_stuck_goal_edge=1
+WCRT_VIOLATION case=injected_goal_stall actual_frames=46 bound_frames=14 actual_wall_us=4.3 stuck_edge=EXPANDING->FOUND/GOAL edge_actual_frames=41 edge_allowance_frames=1
+overrun_tiny_b_reports_stuck_budget_loop=1
+WCRT_VIOLATION case=b1_against_b15_contract actual_frames=190 bound_frames=14 actual_wall_us=14.9 stuck_edge=EXPANDING->EXPANDING/BUDGET edge_actual_frames=188 edge_allowance_frames=12
+tiny_b_passes_its_own_bound=1
+all_ok=1
