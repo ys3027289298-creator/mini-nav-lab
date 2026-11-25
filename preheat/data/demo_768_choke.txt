@@ -1,0 +1,4 @@
+W=32 H=24 n=768 profile=choke
+pairs_timed=100 cold_tq_ms=0.010260 preheat_queries=454950
+preheat_measured_ms=4156.488 preheat_model_ms=4667.814 model_over_measured=1.123
+warm_thit_ms=0.000002 speedup_cold_over_warm=4372.1x

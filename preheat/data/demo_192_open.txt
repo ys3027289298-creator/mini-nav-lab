@@ -1,0 +1,4 @@
+W=16 H=12 n=192 profile=open
+pairs_timed=100 cold_tq_ms=0.001441 preheat_queries=28730
+preheat_measured_ms=19.058 preheat_model_ms=41.386 model_over_measured=2.172
+warm_thit_ms=0.000002 speedup_cold_over_warm=605.7x
