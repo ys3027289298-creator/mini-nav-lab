@@ -1,0 +1,4 @@
+tier,side,area,array_ns,bitmap_ns,heap_ns,chosen,decision_note,chosen_ns,chosen_knee_area,knee_above_target,speedup_vs_plain_array,is_fastest_of_three,overhead_vs_fastest_pct
+small,17,289,3419.0,2928.5,2944.5,bitmap,tie<=5pct -> cache-friendly bitmap,2928.5,2000.8,True,1.17,True,0.0
+medium,65,4225,416057.0,275959.0,77260.5,heap,,77260.5,2099601.0,True,5.39,True,0.0
+large,257,66049,32515286.0,20209075.5,2365555.5,heap,,2365555.5,2099601.0,True,13.75,True,0.0

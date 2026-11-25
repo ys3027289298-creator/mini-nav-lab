@@ -1,0 +1,5 @@
+family,variant,knee_area_cost_crossing,knee_side,knee_area_pinned_fit,free_slope_lo,free_slope_hi,ce_ns_per_exp,cs_ns_per_scan_entry,cost_model_r2,omax_growth_exponent,omax_measured_near_knee,capacity_formula_predicts,formula_over_measured
+maze,array,3152.1,56.1,96.6,1.47,1.265,36.947,0.882,0.7828,0.437,5.5,9.7,1.77
+maze,bitmap,3946.4,62.8,159.2,1.357,1.369,36.947,1.417,0.6054,0.437,5.3,15.2,2.84
+scatter,array,717.9,26.8,63.4,1.003,1.666,34.925,0.418,0.9997,0.381,15.0,15.0,1.0
+scatter,bitmap,2000.8,44.7,115.7,1.486,1.596,37.626,0.495,0.9979,0.381,19.2,25.9,1.35
