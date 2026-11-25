@@ -1,0 +1,29 @@
+explored_same_region_selectable=1
+unknown_open_cell_rejected=1
+unknown_frontier_candidate_rejected=1
+explored_edge_is_frontier=1
+explored_edge_candidate=1
+explored_but_fog_separated_rejected=1
+bridge_explored_reachable=1
+blocked_target_rejected=1
+full_wall_unreachable=1
+margin_above_step=1
+small_gap_keeps_incumbent=1
+large_gap_reselects=1
+invalid_incumbent_forces_reselect=1
+adjacent_jitter_ignored=1
+far_target_change_accepted=1
+replay_detects_reversals=1
+stable_trace_zero_reversals=1
+threshold_cells=1.50 step_cells=1.0
+all_ok=1
+wrote /home/ys/feedback/uidreczz28dp8PB0POr/explore/docs/curves.csv (75 rows)
+wrote /home/ys/feedback/uidreczz28dp8PB0POr/explore/docs/summary.json
+theta_curve_zero=1.25 theta_feasible=1.25 theta_committed=1.50
+radius theta osc switches path oracle overhead%
+     3  1.50   0        1   52     50     4.00
+     5  1.50   0        1   44     42     4.76
+     7  1.50   0        1   38     36     5.56
+accepted=true
+python3 tools/plot_curves.py docs/curves.csv docs/summary.json docs/explore-curves.png
+wrote docs/explore-curves.png

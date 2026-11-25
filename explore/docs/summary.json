@@ -1,0 +1,62 @@
+{
+  "data_source": "reconstructed_two_forward_one_back_fixture (no replay file in repository)",
+  "radii_cells": [
+    3,
+    5,
+    7
+  ],
+  "step_cells_per_frame": 1.0,
+  "rule": "theta must be strictly greater than the per-frame displacement",
+  "first_grid_theta_above_step": 1.25,
+  "theta_grid_step_cells": 0.25,
+  "curve_first_all_radii_zero_theta": 1.25,
+  "curve_first_strictly_feasible_theta": 1.25,
+  "committed_theta_cells": 1.5,
+  "commit_rationale": "half-cell quantization above the worst observed 1.10-cell rank swing; it accepts the 1.75/2.75/4.25-cell improvements but may ignore the 1.40-cell micro-improvement, producing the measured small premium",
+  "path_limit_pct": 10.0,
+  "final_runs": [
+    {
+      "radius": 3,
+      "theta": 1.5,
+      "oscillations": 0,
+      "target_switches": 1,
+      "path_length": 52,
+      "oracle_length": 50,
+      "route_extra_cells": 2,
+      "path_overhead_fraction": 0.04,
+      "path_overhead_pct": 4.0,
+      "zero_oscillation": true,
+      "path_within_10pct": true,
+      "feasible": true
+    },
+    {
+      "radius": 5,
+      "theta": 1.5,
+      "oscillations": 0,
+      "target_switches": 1,
+      "path_length": 44,
+      "oracle_length": 42,
+      "route_extra_cells": 2,
+      "path_overhead_fraction": 0.047619047619047616,
+      "path_overhead_pct": 4.761904761904762,
+      "zero_oscillation": true,
+      "path_within_10pct": true,
+      "feasible": true
+    },
+    {
+      "radius": 7,
+      "theta": 1.5,
+      "oscillations": 0,
+      "target_switches": 1,
+      "path_length": 38,
+      "oracle_length": 36,
+      "route_extra_cells": 2,
+      "path_overhead_fraction": 0.05555555555555555,
+      "path_overhead_pct": 5.555555555555555,
+      "zero_oscillation": true,
+      "path_within_10pct": true,
+      "feasible": true
+    }
+  ],
+  "accepted": true
+}
