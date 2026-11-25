@@ -1,0 +1,280 @@
+<!doctype html>
+<html lang="zh">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>路径平滑强度取舍 — (0,0)→(12,7), 14 段 13 转</title>
+<style>
+.viz-root {
+  color-scheme: light;
+  --surface-1: #fcfcfb;
+  --page: #f9f9f7;
+  --text-primary: #0b0b0b;
+  --text-secondary: #52514e;
+  --muted: #898781;
+  --grid: #e1e0d9;
+  --axis: #c3c2b7;
+  --blue: #2a78d6;
+  --orange: #eb6834;
+  --aqua: #1baf7a;
+  --wall: #52514e;
+  background: var(--page);
+  color: var(--text-primary);
+  font-family: system-ui, -apple-system, "Segoe UI", sans-serif;
+  max-width: 980px;
+  margin: 24px auto;
+  padding: 0 20px;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) .viz-root {
+    color-scheme: dark;
+    --surface-1: #1a1a19;
+    --page: #0d0d0d;
+    --text-primary: #f0efec;
+    --text-secondary: #c3c2b7;
+    --muted: #898781;
+    --grid: #2c2c2a;
+    --axis: #383835;
+    --blue: #3987e5;
+    --orange: #d95926;
+    --aqua: #199e70;
+    --wall: #c3c2b7;
+  }
+}
+h1 { font-size: 18px; margin: 0 0 4px; }
+.sub { color: var(--text-secondary); font-size: 13px; margin: 0 0 20px; }
+.card {
+  background: var(--surface-1);
+  border: 1px solid rgba(11,11,11,0.10);
+  border-radius: 10px;
+  padding: 18px 18px 10px;
+  margin-bottom: 18px;
+}
+.card h2 { font-size: 14px; margin: 0 0 2px; font-weight: 600; }
+.card p.note { color: var(--text-secondary); font-size: 12px; margin: 0 0 10px; }
+svg { width: 100%; height: auto; display: block; }
+.grid { stroke: var(--grid); stroke-width: 1; }
+.axis { stroke: var(--axis); stroke-width: 1; }
+.tick { fill: var(--muted); font-size: 11px; font-variant-numeric: tabular-nums; }
+.title { fill: var(--text-primary); font-size: 12.5px; font-weight: 600; }
+.line { fill: none; stroke-width: 2; stroke-linejoin: round; stroke-linecap: round; }
+.dot { stroke: var(--surface-1); stroke-width: 2; }
+.vline { stroke: var(--aqua); stroke-width: 1.5; stroke-dasharray: 5 4; }
+.vlabel { fill: var(--aqua); font-size: 11px; font-weight: 600; }
+.legend { display: flex; gap: 18px; flex-wrap: wrap; margin: 6px 0 0; font-size: 12px; color: var(--text-secondary); }
+.legend span { display: inline-flex; align-items: center; gap: 6px; }
+.key { width: 14px; height: 2.5px; border-radius: 2px; display: inline-block; }
+.map-cell { stroke: var(--grid); stroke-width: 1; }
+.tooltip {
+  position: fixed; pointer-events: none; z-index: 10;
+  background: var(--surface-1); border: 1px solid var(--axis);
+  border-radius: 6px; padding: 6px 9px; font-size: 12px;
+  color: var(--text-primary); box-shadow: 0 4px 14px rgba(0,0,0,.18);
+  display: none; white-space: nowrap;
+}
+table { border-collapse: collapse; width: 100%; font-size: 12px; }
+th, td { text-align: right; padding: 4px 10px; border-bottom: 1px solid var(--grid);
+         font-variant-numeric: tabular-nums; }
+th:first-child, td:first-child { text-align: left; }
+th { color: var(--text-secondary); font-weight: 600; }
+.hl { background: color-mix(in srgb, var(--aqua) 12%, transparent); }
+</style>
+</head>
+<body>
+<div class="viz-root" id="root">
+  <h1>平滑强度的两条曲线：路径长度 vs 离障碍最小距离</h1>
+  <p class="sub">同一张 16×12 图，同一条日志路径（15 个节点、14 段、13 个转弯，(0,0)→(12,7)）。横轴是平滑强度 = 角色半径 r（格）；弦的扫掠管必须与每个障碍格保持 <b>严格大于 r</b> 的间隙。</p>
+
+  <div class="card">
+    <h2>三条随 r 变化的响应（小倍图，共享横轴；各纵轴独立，不做双轴）</h2>
+    <p class="note">点数是阶梯函数（橙），路径长度（蓝）与最小间隙（绿）随之交换：r 越小越贴近直线但擦角；r=0.35 处 4 点 &lt; 15/3，间隙 0.486 格。</p>
+    <svg id="chart" viewBox="0 0 920 430" role="img"
+         aria-label="三个面板：点数、路径长度、最小离障碍距离随角色半径变化"></svg>
+    <div class="legend">
+      <span><i class="key" style="background:var(--orange)"></i>平滑后点数（最少子序列, DP）</span>
+      <span><i class="key" style="background:var(--blue)"></i>折线长度（格）</span>
+      <span><i class="key" style="background:var(--aqua)"></i>最差一段离障碍距离（格）</span>
+      <span><i class="key" style="background:var(--aqua);height:0;border-top:2px dashed var(--aqua)"></i>选定强度 r = 0.35</span>
+    </div>
+  </div>
+
+  <div class="card">
+    <h2>地图与弦（绿 = r=0.35 保留的 4 个节点；灰 = 被弦吸收的原路径；# = 障碍柱）</h2>
+    <svg id="map" viewBox="0 0 760 360" role="img"
+         aria-label="栅格地图：原始阶梯路径、两个障碍柱和平滑后的折线路径"></svg>
+  </div>
+
+  <div class="card">
+    <h2>数据表（与图同源，r=0.35 行高亮）</h2>
+    <table id="tbl">
+      <thead><tr><th>半径 r（格）</th><th>点数</th><th>占原节点比</th><th>折线长度</th><th>最小间隙（格）</th><th>保留节点索引</th></tr></thead>
+      <tbody></tbody>
+    </table>
+  </div>
+</div>
+<div class="tooltip" id="tip"></div>
+
+<script>
+// ---- data produced by tools/proto.py (sweep.csv) and the DP chains ----
+const SWEEP = [
+  {r:0.00, k:3, len:14.0384, clear:0.0767, chain:[0,1,14]},
+  {r:0.05, k:3, len:14.0384, clear:0.0767, chain:[0,1,14]},
+  {r:0.10, k:3, len:13.9789, clear:0.1387, chain:[0,3,14]},
+  {r:0.15, k:3, len:13.9875, clear:0.2325, chain:[0,5,14]},
+  {r:0.20, k:3, len:13.9875, clear:0.2325, chain:[0,5,14]},
+  {r:0.25, k:4, len:14.0623, clear:0.3000, chain:[0,1,9,14]},
+  {r:0.30, k:4, len:14.1241, clear:0.4856, chain:[0,1,11,14]},
+  {r:0.35, k:4, len:14.1241, clear:0.4856, chain:[0,1,11,14]},
+  {r:0.40, k:4, len:14.1241, clear:0.4856, chain:[0,1,11,14]},
+  {r:0.45, k:4, len:14.1241, clear:0.4856, chain:[0,1,11,14]},
+  {r:0.50, k:4, len:14.0530, clear:0.5582, chain:[0,3,11,14]},
+];
+const R_CHOSEN = 0.35;
+const RAW_NODES = 15;
+const PATH = [[0,0],[1,0],[2,1],[3,1],[4,2],[5,2],[5,3],[6,3],[7,4],
+              [8,4],[9,5],[10,5],[10,6],[11,6],[12,7]];
+const WALLS = [[4,3],[9,6]];
+const KEPT = SWEEP.find(d => d.r === R_CHOSEN).chain;
+
+const css = n => getComputedStyle(document.getElementById('root'))
+  .getPropertyValue(n).trim();
+
+// ---------- small-multiple line panels ----------
+const svg = document.getElementById('chart');
+const NS = 'http://www.w3.org/2000/svg';
+const W = 920, H = 430, M = {l: 64, r: 24, t: 26, b: 40};
+const PW = (W - M.l - M.r), PH = 118, GAP = 26;
+const xMin = 0, xMax = 0.5;
+const x = r => M.l + (r - xMin) / (xMax - xMin) * PW;
+
+const panels = [
+  {key:'k',     color:'--orange', yMin:2, yMax:5, step:true,
+   title:'平滑后点数（越少越狠，门槛 < 15/3 = 5）', fmt:v=>v.toFixed(0),
+   ticks:[2,3,4,5]},
+  {key:'len',   color:'--blue',   yMin:13.8, yMax:14.2, step:false,
+   title:'折线长度（格）— 越平滑越短，向直线 13.892 收敛', fmt:v=>v.toFixed(2),
+   ticks:[13.8,13.9,14.0,14.1,14.2]},
+  {key:'clear', color:'--aqua',   yMin:0, yMax:0.6, step:false,
+   title:'最差一段离障碍距离（格）— 防卡角的安全余量', fmt:v=>v.toFixed(1),
+   ticks:[0,0.15,0.3,0.45,0.6]},
+];
+
+function el(name, attrs) {
+  const e = document.createElementNS(NS, name);
+  for (const [k, v] of Object.entries(attrs)) e.setAttribute(k, v);
+  return e;
+}
+
+panels.forEach((p, pi) => {
+  const top = M.t + pi * (PH + GAP);
+  const y = v => top + PH - (v - p.yMin) / (p.yMax - p.yMin) * PH;
+  // grid + y ticks
+  p.ticks.forEach(t => {
+    svg.appendChild(el('line', {class:'grid', x1:M.l, x2:M.l+PW, y1:y(t), y2:y(t)}));
+    const txt = el('text', {class:'tick', x:M.l-8, y:y(t)+4, 'text-anchor':'end'});
+    txt.textContent = p.fmt(t); svg.appendChild(txt);
+  });
+  // axes
+  svg.appendChild(el('line', {class:'axis', x1:M.l, x2:M.l+PW, y1:top+PH, y2:top+PH}));
+  svg.appendChild(el('line', {class:'axis', x1:M.l, x2:M.l, y1:top, y2:top+PH}));
+  const tt = el('text', {class:'title', x:M.l, y:top-8});
+  tt.textContent = p.title; svg.appendChild(tt);
+  // chosen-radius marker on every panel
+  svg.appendChild(el('line', {class:'vline', x1:x(R_CHOSEN), x2:x(R_CHOSEN),
+                              y1:top, y2:top+PH}));
+  // step vs straight path
+  let d = '';
+  SWEEP.forEach((row, i) => {
+    const px = x(row.r), py = y(row[p.key]);
+    if (i === 0) d += `M ${px} ${py}`;
+    else if (p.step) d += ` H ${px} V ${py}`;
+    else d += ` L ${px} ${py}`;
+  });
+  if (p.step) d += ` H ${x(0.5)}`;
+  svg.appendChild(el('path', {class:'line', d, stroke:`var(${p.color})`}));
+  SWEEP.forEach(row => {
+    const c = el('circle', {class:'dot', cx:x(row.r), cy:y(row[p.key]), r:4.5,
+                            fill:`var(${p.color})`});
+    c.addEventListener('mousemove', ev => showTip(ev, row));
+    c.addEventListener('mouseleave', hideTip);
+    svg.appendChild(c);
+  });
+  // x ticks only on the bottom panel
+  if (pi === panels.length - 1) {
+    SWEEP.forEach(row => {
+      const t = el('text', {class:'tick', x:x(row.r), y:top+PH+18,
+                            'text-anchor':'middle'});
+      t.textContent = row.r.toFixed(2); svg.appendChild(t);
+    });
+    const ax = el('text', {class:'tick', x:M.l+PW/2, y:top+PH+36,
+                           'text-anchor':'middle'});
+    ax.textContent = '平滑强度：角色半径 r（格）'; svg.appendChild(ax);
+  }
+  const vl = el('text', {class:'vlabel', x:x(R_CHOSEN)+6, y:top+12});
+  vl.textContent = 'r=0.35'; svg.appendChild(vl);
+});
+
+const tip = document.getElementById('tip');
+function showTip(ev, row) {
+  tip.style.display = 'block';
+  tip.innerHTML = `r = <b>${row.r.toFixed(2)}</b> 格 · 点数 <b>${row.k}</b>` +
+    ` · 长度 <b>${row.len.toFixed(4)}</b> · 最小间隙 <b>${row.clear.toFixed(4)}</b>` +
+    `<br>节点链 ${JSON.stringify(row.chain)}`;
+  tip.style.left = (ev.clientX + 14) + 'px';
+  tip.style.top = (ev.clientY + 14) + 'px';
+}
+function hideTip() { tip.style.display = 'none'; }
+
+// ---------- map panel ----------
+const map = document.getElementById('map');
+const MWm = 16, MHm = 12, CS = 44, OX = 30, OY = 24;
+const mx = gx => OX + gx * CS, my = gy => OY + gy * CS;
+// grid + walls
+for (let gy = 0; gy < MHm; gy++) for (let gx = 0; gx < MWm; gx++) {
+  map.appendChild(el('rect', {class:'map-cell', x:mx(gx), y:my(gy),
+    width:CS, height:CS, fill:'var(--surface-1)'}));
+}
+WALLS.forEach(([gx, gy]) => {
+  map.appendChild(el('rect', {x:mx(gx)+3, y:my(gy)+3, width:CS-6, height:CS-6,
+    rx:5, fill:'var(--wall)', opacity:0.85}));
+  const t = el('text', {x:mx(gx)+CS/2, y:my(gy)+CS/2+5, 'text-anchor':'middle',
+    fill:'var(--surface-1)', 'font-size':15, 'font-weight':700});
+  t.textContent = '#'; map.appendChild(t);
+});
+// raw path (thin gray)
+let rawD = PATH.map((p, i) => `${i?'L':'M'} ${mx(p[0])+CS/2} ${my(p[1])+CS/2}`).join(' ');
+map.appendChild(el('path', {d:rawD, fill:'none', stroke:'var(--muted)',
+  'stroke-width':2, 'stroke-dasharray':'4 4'}));
+// smoothed chords (aqua, thick)
+const keptPts = KEPT.map(i => PATH[i]);
+let smD = keptPts.map((p, i) => `${i?'L':'M'} ${mx(p[0])+CS/2} ${my(p[1])+CS/2}`).join(' ');
+map.appendChild(el('path', {d:smD, fill:'none', stroke:'var(--aqua)',
+  'stroke-width':3, 'stroke-linejoin':'round', 'stroke-linecap':'round'}));
+// nodes
+PATH.forEach((p, i) => {
+  const kept = KEPT.includes(i);
+  map.appendChild(el('circle', {cx:mx(p[0])+CS/2, cy:my(p[1])+CS/2,
+    r: kept ? 7 : 4, fill: kept ? 'var(--aqua)' : 'var(--muted)',
+    stroke:'var(--surface-1)', 'stroke-width':2}));
+});
+// start / goal labels
+[['S', PATH[0]], ['G', PATH[PATH.length-1]]].forEach(([lab, p]) => {
+  const t = el('text', {x:mx(p[0])+CS/2, y:my(p[1])-8, 'text-anchor':'middle',
+    class:'title'});
+  t.textContent = lab; map.appendChild(t);
+});
+
+// ---------- table ----------
+const tbody = document.querySelector('#tbl tbody');
+SWEEP.forEach(row => {
+  const tr = document.createElement('tr');
+  if (row.r === R_CHOSEN) tr.className = 'hl';
+  tr.innerHTML =
+    `<td>${row.r.toFixed(2)}</td><td>${row.k}</td>` +
+    `<td>${(row.k/RAW_NODES).toFixed(3)}</td><td>${row.len.toFixed(4)}</td>` +
+    `<td>${row.clear.toFixed(4)}</td><td>${JSON.stringify(row.chain)}</td>`;
+  tbody.appendChild(tr);
+});
+</script>
+</body>
+</html>
