@@ -1,0 +1,132 @@
+make: Entering directory '/home/ys/feedback/uidreczz28dq2Nzxfmm/hotupdate'
+cc -O2 -std=c11 -Wall -Wextra src/hotupdate.c -o hotupdate
+./hotupdate
+== world: chunks=16 cells=256 frames=96 qpf=3 life=[2,6] tiers T=8/4/2
+
+== phase ordering (one window T=4, reclaim cap k=2) ==
+order=LSR S_before_L=0 torn=0 dang=0 first_bad_frame=-1 coord=(0,0)
+order=LRS S_before_L=0 torn=0 dang=0 first_bad_frame=-1 coord=(0,0)
+order=SLR S_before_L=1 torn=2 dang=0 first_bad_frame=1 coord=(1,14)
+order=SRL S_before_L=1 torn=8 dang=0 first_bad_frame=1 coord=(5,0)
+order=RLS S_before_L=0 torn=0 dang=0 first_bad_frame=-1 coord=(0,0)
+order=RSL S_before_L=1 torn=3 dang=0 first_bad_frame=2 coord=(13,10)
+L_before_S_never_torn_and_S_before_L_always_torn=1
+
+CSVKSWEEP
+tier,T,k,torn,dang,peak_chunks,qmax,switches
+
+== tier=slow T=8 naive in-place ==
+naive: torn=252 dang=137 peak_chunks=16 switches=12
+  viol frame=8 q=7 kind=dangling coord=(6,12) gen_snap=1 gen_now=-1
+  viol frame=8 q=8 kind=dangling coord=(8,3) gen_snap=1 gen_now=-1
+  viol frame=8 q=11 kind=dangling coord=(4,10) gen_snap=1 gen_now=-1
+  viol frame=8 q=12 kind=dangling coord=(8,0) gen_snap=1 gen_now=-1
+  viol frame=8 q=14 kind=dangling coord=(2,13) gen_snap=1 gen_now=-1
+  viol frame=8 q=15 kind=dangling coord=(3,0) gen_snap=1 gen_now=-1
+naive_violates=1
+rcu k=0: torn=0 dang=389 peak_chunks=32 qmax=14 switches=11
+  viol frame=8 q=7 kind=dangling coord=(6,12) gen_snap=0 gen_now=1
+  viol frame=8 q=8 kind=dangling coord=(8,3) gen_snap=0 gen_now=1
+  viol frame=8 q=11 kind=dangling coord=(4,10) gen_snap=0 gen_now=1
+  viol frame=8 q=12 kind=dangling coord=(8,0) gen_snap=0 gen_now=1
+  viol frame=8 q=14 kind=dangling coord=(2,13) gen_snap=0 gen_now=1
+  viol frame=8 q=15 kind=dangling coord=(3,0) gen_snap=0 gen_now=1
+CSV,slow,8,0,0,389,32,14,11
+rcu k=1: torn=0 dang=0 peak_chunks=48 qmax=14 switches=11
+CSV,slow,8,1,0,0,48,14,11
+rcu k=2: torn=0 dang=0 peak_chunks=64 qmax=14 switches=11
+CSV,slow,8,2,0,0,64,14,11
+rcu k=3: torn=0 dang=0 peak_chunks=80 qmax=14 switches=11
+CSV,slow,8,3,0,0,80,14,11
+rcu k=4: torn=0 dang=0 peak_chunks=96 qmax=14 switches=11
+CSV,slow,8,4,0,0,96,14,11
+tier=slow k_measured=1 k_formula=ceil(6/8)=1 qmax=14
+k_matches_formula=1
+rcu_safe_at_kstar=1
+
+== tier=medium T=4 naive in-place ==
+naive: torn=438 dang=282 peak_chunks=16 switches=24
+  viol frame=4 q=0 kind=dangling coord=(11,12) gen_snap=1 gen_now=-1
+  viol frame=4 q=3 kind=dangling coord=(7,1) gen_snap=1 gen_now=-1
+  viol frame=4 q=5 kind=dangling coord=(14,12) gen_snap=1 gen_now=-1
+  viol frame=4 q=6 kind=dangling coord=(13,5) gen_snap=1 gen_now=-1
+  viol frame=4 q=7 kind=dangling coord=(12,15) gen_snap=1 gen_now=-1
+  viol frame=4 q=8 kind=dangling coord=(12,7) gen_snap=1 gen_now=-1
+naive_violates=1
+rcu k=0: torn=0 dang=720 peak_chunks=32 qmax=14 switches=23
+  viol frame=4 q=0 kind=dangling coord=(11,12) gen_snap=0 gen_now=1
+  viol frame=4 q=3 kind=dangling coord=(7,1) gen_snap=0 gen_now=1
+  viol frame=4 q=5 kind=dangling coord=(14,12) gen_snap=0 gen_now=1
+  viol frame=4 q=6 kind=dangling coord=(13,5) gen_snap=0 gen_now=1
+  viol frame=4 q=7 kind=dangling coord=(12,15) gen_snap=0 gen_now=1
+  viol frame=4 q=8 kind=dangling coord=(12,7) gen_snap=0 gen_now=1
+CSV,medium,4,0,0,720,32,14,23
+rcu k=1: torn=0 dang=50 peak_chunks=48 qmax=14 switches=23
+  viol frame=8 q=6 kind=dangling coord=(6,12) gen_snap=0 gen_now=2
+  viol frame=12 q=18 kind=dangling coord=(10,9) gen_snap=1 gen_now=3
+  viol frame=12 q=22 kind=dangling coord=(10,4) gen_snap=1 gen_now=3
+  viol frame=16 q=34 kind=dangling coord=(9,14) gen_snap=2 gen_now=4
+  viol frame=24 q=54 kind=dangling coord=(3,11) gen_snap=4 gen_now=6
+  viol frame=24 q=57 kind=dangling coord=(0,3) gen_snap=4 gen_now=6
+CSV,medium,4,1,0,50,48,14,23
+rcu k=2: torn=0 dang=0 peak_chunks=64 qmax=14 switches=23
+CSV,medium,4,2,0,0,64,14,23
+rcu k=3: torn=0 dang=0 peak_chunks=80 qmax=14 switches=23
+CSV,medium,4,3,0,0,80,14,23
+rcu k=4: torn=0 dang=0 peak_chunks=96 qmax=14 switches=23
+CSV,medium,4,4,0,0,96,14,23
+tier=medium k_measured=2 k_formula=ceil(6/4)=2 qmax=14
+k_matches_formula=1
+rcu_safe_at_kstar=1
+
+== tier=fast T=2 naive in-place ==
+naive: torn=413 dang=549 peak_chunks=16 switches=48
+  viol frame=2 q=0 kind=dangling coord=(9,10) gen_snap=1 gen_now=-1
+  viol frame=2 q=1 kind=dangling coord=(4,7) gen_snap=1 gen_now=-1
+  viol frame=2 q=2 kind=dangling coord=(7,8) gen_snap=1 gen_now=-1
+  viol frame=2 q=3 kind=dangling coord=(8,9) gen_snap=1 gen_now=-1
+  viol frame=2 q=4 kind=dangling coord=(13,12) gen_snap=1 gen_now=-1
+  viol frame=2 q=5 kind=dangling coord=(7,13) gen_snap=1 gen_now=-1
+naive_violates=1
+rcu k=0: torn=0 dang=962 peak_chunks=32 qmax=14 switches=47
+  viol frame=2 q=0 kind=dangling coord=(9,10) gen_snap=0 gen_now=1
+  viol frame=2 q=1 kind=dangling coord=(4,7) gen_snap=0 gen_now=1
+  viol frame=2 q=2 kind=dangling coord=(7,8) gen_snap=0 gen_now=1
+  viol frame=2 q=3 kind=dangling coord=(8,9) gen_snap=0 gen_now=1
+  viol frame=2 q=4 kind=dangling coord=(13,12) gen_snap=0 gen_now=1
+  viol frame=2 q=5 kind=dangling coord=(7,13) gen_snap=0 gen_now=1
+CSV,fast,2,0,0,962,32,14,47
+rcu k=1: torn=0 dang=423 peak_chunks=48 qmax=14 switches=47
+  viol frame=4 q=3 kind=dangling coord=(6,14) gen_snap=0 gen_now=2
+  viol frame=4 q=5 kind=dangling coord=(6,2) gen_snap=0 gen_now=2
+  viol frame=5 q=3 kind=dangling coord=(13,6) gen_snap=0 gen_now=2
+  viol frame=6 q=3 kind=dangling coord=(13,6) gen_snap=0 gen_now=3
+  viol frame=6 q=6 kind=dangling coord=(7,11) gen_snap=1 gen_now=3
+  viol frame=6 q=8 kind=dangling coord=(7,3) gen_snap=1 gen_now=3
+CSV,fast,2,1,0,423,48,14,47
+rcu k=2: torn=0 dang=102 peak_chunks=64 qmax=14 switches=47
+  viol frame=6 q=3 kind=dangling coord=(13,6) gen_snap=0 gen_now=3
+  viol frame=10 q=13 kind=dangling coord=(9,13) gen_snap=2 gen_now=5
+  viol frame=10 q=15 kind=dangling coord=(9,10) gen_snap=2 gen_now=5
+  viol frame=12 q=20 kind=dangling coord=(2,4) gen_snap=3 gen_now=6
+  viol frame=12 q=21 kind=dangling coord=(15,10) gen_snap=3 gen_now=6
+  viol frame=14 q=26 kind=dangling coord=(10,11) gen_snap=4 gen_now=7
+CSV,fast,2,2,0,102,64,14,47
+rcu k=3: torn=0 dang=0 peak_chunks=80 qmax=14 switches=47
+CSV,fast,2,3,0,0,80,14,47
+rcu k=4: torn=0 dang=0 peak_chunks=96 qmax=14 switches=47
+CSV,fast,2,4,0,0,96,14,47
+tier=fast k_measured=3 k_formula=ceil(6/2)=3 qmax=14
+k_matches_formula=1
+rcu_safe_at_kstar=1
+
+== reverse solve from switch-time query count ==
+tier T=8 qmax=14 (capacity QPF*LMAX=18) -> retain 1 gen, measured k=1
+reverse_solve_matches=1
+tier T=4 qmax=14 (capacity QPF*LMAX=18) -> retain 2 gen, measured k=2
+reverse_solve_matches=1
+tier T=2 qmax=14 (capacity QPF*LMAX=18) -> retain 3 gen, measured k=3
+reverse_solve_matches=1
+
+all_ok=1
+make: Leaving directory '/home/ys/feedback/uidreczz28dq2Nzxfmm/hotupdate'

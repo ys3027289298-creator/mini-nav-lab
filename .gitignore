@@ -1,0 +1,8 @@
+# build outputs
+grid/grid
+smooth/smooth
+region/region
+hotupdate/hotupdate
+
+# rendered figures (regenerate with make plot)
+hotupdate/artifacts/*.png
