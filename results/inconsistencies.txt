@@ -1,0 +1,97 @@
+# small/stateless: 5 sampled failing records, field_counts={'created_at': 5000, 'checksum': 5000, 'path': 309, 'flags': 101, 'goal_idx': 14, 'start_idx': 15}
+tier=small scheme=stateless record=0
+  created_at off=216 size=8 recovery=store old=0x0020C10A03650600 (1799913600000000) got=0x0080982817650600 (1800000000000000)
+  checksum off=224 size=4 recovery=recompute old=0x8B6BB6B7 (3082185611) got=0x765DE6BF (3219545462)
+tier=small scheme=stateless record=1
+  created_at off=216 size=8 recovery=store old=0x4362D00A03650600 (1799913601000003) got=0x0180982817650600 (1800000000000001)
+  checksum off=224 size=4 recovery=recompute old=0x4EEB6D39 (963504974) got=0x4DAD9B41 (1100721485)
+tier=small scheme=stateless record=2
+  created_at off=216 size=8 recovery=store old=0x86A4DF0A03650600 (1799913602000006) got=0x0280982817650600 (1800000000000002)
+  checksum off=224 size=4 recovery=recompute old=0x435FEB60 (1626038083) got=0x944F4FFA (4199501716)
+tier=small scheme=stateless record=3
+  created_at off=216 size=8 recovery=store old=0xC9E6EE0A03650600 (1799913603000009) got=0x0380982817650600 (1800000000000003)
+  checksum off=224 size=4 recovery=recompute old=0xD93F6052 (1382039513) got=0x894F61E8 (3898691465)
+tier=small scheme=stateless record=4
+  created_at off=216 size=8 recovery=store old=0x0C29FE0A03650600 (1799913604000012) got=0x0480982817650600 (1800000000000004)
+  checksum off=224 size=4 recovery=recompute old=0xA68C154F (1326812326) got=0x455114F4 (4094972229)
+# small/predicted: 5 sampled failing records, field_counts={'path': 309, 'checksum': 439, 'flags': 101, 'goal_idx': 14, 'start_idx': 15}
+tier=small scheme=predicted record=7
+  path[20] off=92 size=4 recovery=inverse old=0xABDB9F93 (2476727211) got=0x00000000 (0)
+  checksum off=224 size=4 recovery=recompute old=0xB6C8967F (2140588214) got=0xC985F4B6 (3069478345)
+tier=small scheme=predicted record=11
+  path[46] off=196 size=4 recovery=inverse old=0xD9F00E2C (739176665) got=0x00000000 (0)
+  checksum off=224 size=4 recovery=recompute old=0xB5F6ECA5 (2783770293) got=0x4C9A4FD6 (3595541068)
+tier=small scheme=predicted record=36
+  path[45] off=192 size=4 recovery=inverse old=0x991BE80A (182983577) got=0x00000000 (0)
+  checksum off=224 size=4 recovery=recompute old=0xDB47D312 (315836379) got=0x5B96D9E5 (3856242267)
+tier=small scheme=predicted record=42
+  path[41] off=176 size=4 recovery=inverse old=0x200B3B9E (2654669600) got=0x00000000 (0)
+  checksum off=224 size=4 recovery=recompute old=0x5E118887 (2273841502) got=0x9F501BF5 (4112208031)
+tier=small scheme=predicted record=43
+  path[36] off=156 size=4 recovery=inverse old=0xF64E29F5 (4113125110) got=0x00000000 (0)
+  checksum off=224 size=4 recovery=recompute old=0xA3F48AF4 (4102747299) got=0x040D1614 (336989444)
+# medium/stateless: 5 sampled failing records, field_counts={'created_at': 50000, 'checksum': 50000, 'flags': 1044, 'path': 3217, 'start_idx': 147, 'goal_idx': 183}
+tier=medium scheme=stateless record=0
+  created_at off=216 size=8 recovery=store old=0x0020C10A03650600 (1799913600000000) got=0x0080982817650600 (1800000000000000)
+  checksum off=224 size=4 recovery=recompute old=0xB93D8D50 (1351433657) got=0x440BDD58 (1490881348)
+tier=medium scheme=stateless record=1
+  created_at off=216 size=8 recovery=store old=0x4362D00A03650600 (1799913601000003) got=0x0180982817650600 (1800000000000001)
+  checksum off=224 size=4 recovery=recompute old=0xCE41A6EC (3970318798) got=0xCD075094 (2488272845)
+tier=medium scheme=stateless record=2
+  flags off=6 size=2 recovery=inverse old=0x0100 (1) got=0x0000 (0)
+  created_at off=216 size=8 recovery=store old=0x86A4DF0A03650600 (1799913602000006) got=0x0280982817650600 (1800000000000002)
+  checksum off=224 size=4 recovery=recompute old=0xC43BC29D (2646752196) got=0xD2ADDA91 (2447027666)
+tier=medium scheme=stateless record=3
+  created_at off=216 size=8 recovery=store old=0xC9E6EE0A03650600 (1799913603000009) got=0x0380982817650600 (1800000000000003)
+  checksum off=224 size=4 recovery=recompute old=0xEBE9AF5E (1588586987) got=0xBB99AEE4 (3836647867)
+tier=medium scheme=stateless record=4
+  created_at off=216 size=8 recovery=store old=0x0C29FE0A03650600 (1799913604000012) got=0x0480982817650600 (1800000000000004)
+  checksum off=224 size=4 recovery=recompute old=0x1164D8DB (3688391697) got=0xF2B9D960 (1624881650)
+# medium/predicted: 5 sampled failing records, field_counts={'flags': 1044, 'checksum': 4591, 'path': 3217, 'start_idx': 147, 'goal_idx': 183}
+tier=medium scheme=predicted record=2
+  flags off=6 size=2 recovery=inverse old=0x0100 (1) got=0x0000 (0)
+  checksum off=224 size=4 recovery=recompute old=0xC43BC29D (2646752196) got=0x05BD7E0B (192855301)
+tier=medium scheme=predicted record=8
+  path[19] off=88 size=4 recovery=inverse old=0x878B8C41 (1099729799) got=0x00000000 (0)
+  checksum off=224 size=4 recovery=recompute old=0x6F262921 (556344943) got=0xB57DCF7E (2127527349)
+tier=medium scheme=predicted record=16
+  flags off=6 size=2 recovery=inverse old=0x0100 (1) got=0x0000 (0)
+  checksum off=224 size=4 recovery=recompute old=0xEE63A5DC (3701826542) got=0x2FE5194A (1243211055)
+tier=medium scheme=predicted record=26
+  path[16] off=76 size=4 recovery=inverse old=0x8313E9F1 (4058583939) got=0x00000000 (0)
+  checksum off=224 size=4 recovery=recompute old=0x644F4F46 (1179602788) got=0xCE57311E (506550222)
+tier=medium scheme=predicted record=36
+  path[43] off=184 size=4 recovery=inverse old=0xF39F2E9D (2637078515) got=0x00000000 (0)
+  checksum off=224 size=4 recovery=recompute old=0x220C6473 (1935936546) got=0xDF4AF905 (100223711)
+# large/stateless: 5 sampled failing records, field_counts={'created_at': 500000, 'checksum': 500000, 'flags': 10083, 'path': 31659, 'goal_idx': 1653, 'start_idx': 1662}
+tier=large scheme=stateless record=0
+  created_at off=216 size=8 recovery=store old=0x0020C10A03650600 (1799913600000000) got=0x0080982817650600 (1800000000000000)
+  checksum off=224 size=4 recovery=recompute old=0x598A6EC4 (3295578713) got=0xA4BC3ECC (3426663588)
+tier=large scheme=stateless record=1
+  created_at off=216 size=8 recovery=store old=0x4362D00A03650600 (1799913601000003) got=0x0180982817650600 (1800000000000001)
+  checksum off=224 size=4 recovery=recompute old=0x95126F6C (1819218581) got=0x96549914 (345592982)
+tier=large scheme=stateless record=2
+  created_at off=216 size=8 recovery=store old=0x86A4DF0A03650600 (1799913602000006) got=0x0280982817650600 (1800000000000002)
+  checksum off=224 size=4 recovery=recompute old=0x54B192E9 (3918704980) got=0x83A13673 (1932960131)
+tier=large scheme=stateless record=3
+  created_at off=216 size=8 recovery=store old=0xC9E6EE0A03650600 (1799913603000009) got=0x0380982817650600 (1800000000000003)
+  checksum off=224 size=4 recovery=recompute old=0x154FBF08 (146755349) got=0x453FBEB2 (2998812485)
+tier=large scheme=stateless record=4
+  created_at off=216 size=8 recovery=store old=0x0C29FE0A03650600 (1799913604000012) got=0x0480982817650600 (1800000000000004)
+  checksum off=224 size=4 recovery=recompute old=0xA4C355D2 (3528836004) got=0x471E5469 (1767120455)
+# large/predicted: 5 sampled failing records, field_counts={'flags': 10083, 'checksum': 45057, 'path': 31659, 'goal_idx': 1653, 'start_idx': 1662}
+tier=large scheme=predicted record=16
+  flags off=6 size=2 recovery=inverse old=0x0100 (1) got=0x0000 (0)
+  checksum off=224 size=4 recovery=recompute old=0x40D9F3F0 (4042512704) got=0x815F4F66 (1716477825)
+tier=large scheme=predicted record=21
+  path[29] off=128 size=4 recovery=inverse old=0xFFFEFDA1 (2717777663) got=0x00000000 (0)
+  checksum off=224 size=4 recovery=recompute old=0xE682E062 (1658880742) got=0xB82FA73B (1000812472)
+tier=large scheme=predicted record=25
+  path[43] off=184 size=4 recovery=inverse old=0x87E8F9D8 (3640256647) got=0x00000000 (0)
+  checksum off=224 size=4 recovery=recompute old=0xFD74B199 (2578543869) got=0x167D153C (1008041238)
+tier=large scheme=predicted record=52
+  path[24] off=108 size=4 recovery=inverse old=0x8E7BA926 (648641422) got=0x00000000 (0)
+  checksum off=224 size=4 recovery=recompute old=0xFD8E3139 (959549181) got=0x7255E95D (1575572850)
+tier=large scheme=predicted record=63
+  path[28] off=124 size=4 recovery=inverse old=0x3AA3356F (1865786170) got=0x00000000 (0)
+  checksum off=224 size=4 recovery=recompute old=0x2FAE1F61 (1629466159) got=0x0C66C777 (2009556492)

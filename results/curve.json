@@ -1,0 +1,959 @@
+{
+  "small": {
+    "records": 5000,
+    "frequency_sample": 5000,
+    "field_failure_frequency": {
+      "magic": 0,
+      "version": 0,
+      "flags": 101,
+      "path_len": 0,
+      "path[0]": 2,
+      "path[1]": 4,
+      "path[2]": 4,
+      "path[3]": 4,
+      "path[4]": 0,
+      "path[5]": 0,
+      "path[6]": 3,
+      "path[7]": 1,
+      "path[8]": 2,
+      "path[9]": 6,
+      "path[10]": 5,
+      "path[11]": 2,
+      "path[12]": 5,
+      "path[13]": 10,
+      "path[14]": 5,
+      "path[15]": 6,
+      "path[16]": 8,
+      "path[17]": 1,
+      "path[18]": 5,
+      "path[19]": 10,
+      "path[20]": 10,
+      "path[21]": 11,
+      "path[22]": 12,
+      "path[23]": 9,
+      "path[24]": 7,
+      "path[25]": 10,
+      "path[26]": 11,
+      "path[27]": 5,
+      "path[28]": 8,
+      "path[29]": 6,
+      "path[30]": 8,
+      "path[31]": 4,
+      "path[32]": 4,
+      "path[33]": 12,
+      "path[34]": 12,
+      "path[35]": 3,
+      "path[36]": 7,
+      "path[37]": 8,
+      "path[38]": 9,
+      "path[39]": 8,
+      "path[40]": 14,
+      "path[41]": 8,
+      "path[42]": 4,
+      "path[43]": 5,
+      "path[44]": 9,
+      "path[45]": 9,
+      "path[46]": 6,
+      "path[47]": 7,
+      "start_idx": 15,
+      "goal_idx": 14,
+      "cost": 0,
+      "created_at": 5000,
+      "checksum": 5000
+    },
+    "curves": {
+      "empirical": [
+        {
+          "fields_stored": 1,
+          "undo_success_rate": 0.9122,
+          "mean_snapshot_bytes": 19.0,
+          "snapshot_over_old": 0.08333333333333333
+        },
+        {
+          "fields_stored": 2,
+          "undo_success_rate": 0.9122,
+          "mean_snapshot_bytes": 24.0,
+          "snapshot_over_old": 0.10526315789473684
+        },
+        {
+          "fields_stored": 3,
+          "undo_success_rate": 0.9324,
+          "mean_snapshot_bytes": 27.0,
+          "snapshot_over_old": 0.11842105263157894
+        },
+        {
+          "fields_stored": 5,
+          "undo_success_rate": 0.9382,
+          "mean_snapshot_bytes": 37.0,
+          "snapshot_over_old": 0.16228070175438597
+        },
+        {
+          "fields_stored": 8,
+          "undo_success_rate": 0.9458,
+          "mean_snapshot_bytes": 52.0,
+          "snapshot_over_old": 0.22807017543859648
+        },
+        {
+          "fields_stored": 12,
+          "undo_success_rate": 0.9546,
+          "mean_snapshot_bytes": 72.0,
+          "snapshot_over_old": 0.3157894736842105
+        },
+        {
+          "fields_stored": 16,
+          "undo_success_rate": 0.9624,
+          "mean_snapshot_bytes": 92.0,
+          "snapshot_over_old": 0.40350877192982454
+        },
+        {
+          "fields_stored": 24,
+          "undo_success_rate": 0.9758,
+          "mean_snapshot_bytes": 132.0,
+          "snapshot_over_old": 0.5789473684210527
+        },
+        {
+          "fields_stored": 32,
+          "undo_success_rate": 0.9864,
+          "mean_snapshot_bytes": 172.0,
+          "snapshot_over_old": 0.7543859649122807
+        },
+        {
+          "fields_stored": 40,
+          "undo_success_rate": 0.994,
+          "mean_snapshot_bytes": 212.0,
+          "snapshot_over_old": 0.9298245614035088
+        },
+        {
+          "fields_stored": 48,
+          "undo_success_rate": 0.9992,
+          "mean_snapshot_bytes": 252.0,
+          "snapshot_over_old": 1.105263157894737
+        },
+        {
+          "fields_stored": 49,
+          "undo_success_rate": 0.9996,
+          "mean_snapshot_bytes": 257.0,
+          "snapshot_over_old": 1.1271929824561404
+        },
+        {
+          "fields_stored": 50,
+          "undo_success_rate": 0.9998,
+          "mean_snapshot_bytes": 262.0,
+          "snapshot_over_old": 1.1491228070175439
+        },
+        {
+          "fields_stored": 51,
+          "undo_success_rate": 1.0,
+          "mean_snapshot_bytes": 267.0,
+          "snapshot_over_old": 1.1710526315789473
+        },
+        {
+          "fields_stored": 52,
+          "undo_success_rate": 1.0,
+          "mean_snapshot_bytes": 272.0,
+          "snapshot_over_old": 1.1929824561403508
+        },
+        {
+          "fields_stored": 53,
+          "undo_success_rate": 1.0,
+          "mean_snapshot_bytes": 275.0,
+          "snapshot_over_old": 1.206140350877193
+        },
+        {
+          "fields_stored": 54,
+          "undo_success_rate": 1.0,
+          "mean_snapshot_bytes": 280.0,
+          "snapshot_over_old": 1.2280701754385965
+        },
+        {
+          "fields_stored": 55,
+          "undo_success_rate": 1.0,
+          "mean_snapshot_bytes": 285.0,
+          "snapshot_over_old": 1.25
+        },
+        {
+          "fields_stored": 56,
+          "undo_success_rate": 1.0,
+          "mean_snapshot_bytes": 290.0,
+          "snapshot_over_old": 1.2719298245614035
+        },
+        {
+          "fields_stored": 57,
+          "undo_success_rate": 1.0,
+          "mean_snapshot_bytes": 295.0,
+          "snapshot_over_old": 1.293859649122807
+        }
+      ],
+      "predicted": [
+        {
+          "fields_stored": 1,
+          "undo_success_rate": 0.0,
+          "mean_snapshot_bytes": 15.0,
+          "snapshot_over_old": 0.06578947368421052
+        },
+        {
+          "fields_stored": 2,
+          "undo_success_rate": 0.0,
+          "mean_snapshot_bytes": 18.0,
+          "snapshot_over_old": 0.07894736842105263
+        },
+        {
+          "fields_stored": 3,
+          "undo_success_rate": 0.0,
+          "mean_snapshot_bytes": 21.0,
+          "snapshot_over_old": 0.09210526315789473
+        },
+        {
+          "fields_stored": 5,
+          "undo_success_rate": 0.0,
+          "mean_snapshot_bytes": 31.0,
+          "snapshot_over_old": 0.13596491228070176
+        },
+        {
+          "fields_stored": 8,
+          "undo_success_rate": 0.0,
+          "mean_snapshot_bytes": 46.0,
+          "snapshot_over_old": 0.20175438596491227
+        },
+        {
+          "fields_stored": 12,
+          "undo_success_rate": 0.0,
+          "mean_snapshot_bytes": 66.0,
+          "snapshot_over_old": 0.2894736842105263
+        },
+        {
+          "fields_stored": 16,
+          "undo_success_rate": 0.0,
+          "mean_snapshot_bytes": 86.0,
+          "snapshot_over_old": 0.37719298245614036
+        },
+        {
+          "fields_stored": 24,
+          "undo_success_rate": 0.0,
+          "mean_snapshot_bytes": 126.0,
+          "snapshot_over_old": 0.5526315789473685
+        },
+        {
+          "fields_stored": 32,
+          "undo_success_rate": 0.0,
+          "mean_snapshot_bytes": 166.0,
+          "snapshot_over_old": 0.7280701754385965
+        },
+        {
+          "fields_stored": 40,
+          "undo_success_rate": 0.0,
+          "mean_snapshot_bytes": 206.0,
+          "snapshot_over_old": 0.9035087719298246
+        },
+        {
+          "fields_stored": 48,
+          "undo_success_rate": 0.0,
+          "mean_snapshot_bytes": 246.0,
+          "snapshot_over_old": 1.0789473684210527
+        },
+        {
+          "fields_stored": 49,
+          "undo_success_rate": 0.0,
+          "mean_snapshot_bytes": 251.0,
+          "snapshot_over_old": 1.1008771929824561
+        },
+        {
+          "fields_stored": 50,
+          "undo_success_rate": 0.0,
+          "mean_snapshot_bytes": 256.0,
+          "snapshot_over_old": 1.1228070175438596
+        },
+        {
+          "fields_stored": 51,
+          "undo_success_rate": 0.0,
+          "mean_snapshot_bytes": 261.0,
+          "snapshot_over_old": 1.144736842105263
+        },
+        {
+          "fields_stored": 52,
+          "undo_success_rate": 0.0,
+          "mean_snapshot_bytes": 266.0,
+          "snapshot_over_old": 1.1666666666666667
+        },
+        {
+          "fields_stored": 53,
+          "undo_success_rate": 0.0,
+          "mean_snapshot_bytes": 271.0,
+          "snapshot_over_old": 1.1885964912280702
+        },
+        {
+          "fields_stored": 54,
+          "undo_success_rate": 0.0,
+          "mean_snapshot_bytes": 276.0,
+          "snapshot_over_old": 1.2105263157894737
+        },
+        {
+          "fields_stored": 55,
+          "undo_success_rate": 0.0,
+          "mean_snapshot_bytes": 281.0,
+          "snapshot_over_old": 1.2324561403508771
+        },
+        {
+          "fields_stored": 56,
+          "undo_success_rate": 1.0,
+          "mean_snapshot_bytes": 290.0,
+          "snapshot_over_old": 1.2719298245614035
+        },
+        {
+          "fields_stored": 57,
+          "undo_success_rate": 1.0,
+          "mean_snapshot_bytes": 295.0,
+          "snapshot_over_old": 1.293859649122807
+        }
+      ]
+    },
+    "delta_per_record": {
+      "undo_success_rate": 1.0,
+      "mean_snapshot_bytes": 24.3986,
+      "snapshot_over_old": 0.10701140350877192
+    },
+    "full": {
+      "undo_success_rate": 1.0,
+      "mean_snapshot_bytes": 237.0,
+      "snapshot_over_old": 1.0394736842105263
+    }
+  },
+  "medium": {
+    "records": 20000,
+    "frequency_sample": 50000,
+    "field_failure_frequency": {
+      "magic": 0,
+      "version": 0,
+      "flags": 1044,
+      "path_len": 0,
+      "path[0]": 21,
+      "path[1]": 16,
+      "path[2]": 18,
+      "path[3]": 16,
+      "path[4]": 20,
+      "path[5]": 27,
+      "path[6]": 25,
+      "path[7]": 34,
+      "path[8]": 36,
+      "path[9]": 33,
+      "path[10]": 50,
+      "path[11]": 45,
+      "path[12]": 52,
+      "path[13]": 61,
+      "path[14]": 64,
+      "path[15]": 68,
+      "path[16]": 58,
+      "path[17]": 87,
+      "path[18]": 96,
+      "path[19]": 89,
+      "path[20]": 60,
+      "path[21]": 69,
+      "path[22]": 78,
+      "path[23]": 84,
+      "path[24]": 86,
+      "path[25]": 77,
+      "path[26]": 100,
+      "path[27]": 79,
+      "path[28]": 73,
+      "path[29]": 81,
+      "path[30]": 86,
+      "path[31]": 91,
+      "path[32]": 88,
+      "path[33]": 87,
+      "path[34]": 88,
+      "path[35]": 76,
+      "path[36]": 81,
+      "path[37]": 94,
+      "path[38]": 76,
+      "path[39]": 85,
+      "path[40]": 89,
+      "path[41]": 75,
+      "path[42]": 78,
+      "path[43]": 100,
+      "path[44]": 86,
+      "path[45]": 84,
+      "path[46]": 77,
+      "path[47]": 73,
+      "start_idx": 147,
+      "goal_idx": 183,
+      "cost": 0,
+      "created_at": 50000,
+      "checksum": 50000
+    },
+    "curves": {
+      "empirical": [
+        {
+          "fields_stored": 1,
+          "undo_success_rate": 0.907,
+          "mean_snapshot_bytes": 19.0,
+          "snapshot_over_old": 0.08333333333333333
+        },
+        {
+          "fields_stored": 2,
+          "undo_success_rate": 0.907,
+          "mean_snapshot_bytes": 24.0,
+          "snapshot_over_old": 0.10526315789473684
+        },
+        {
+          "fields_stored": 3,
+          "undo_success_rate": 0.9279,
+          "mean_snapshot_bytes": 27.0,
+          "snapshot_over_old": 0.11842105263157894
+        },
+        {
+          "fields_stored": 5,
+          "undo_success_rate": 0.93565,
+          "mean_snapshot_bytes": 37.0,
+          "snapshot_over_old": 0.16228070175438597
+        },
+        {
+          "fields_stored": 8,
+          "undo_success_rate": 0.94125,
+          "mean_snapshot_bytes": 52.0,
+          "snapshot_over_old": 0.22807017543859648
+        },
+        {
+          "fields_stored": 12,
+          "undo_success_rate": 0.94815,
+          "mean_snapshot_bytes": 72.0,
+          "snapshot_over_old": 0.3157894736842105
+        },
+        {
+          "fields_stored": 16,
+          "undo_success_rate": 0.9551,
+          "mean_snapshot_bytes": 92.0,
+          "snapshot_over_old": 0.40350877192982454
+        },
+        {
+          "fields_stored": 24,
+          "undo_success_rate": 0.97,
+          "mean_snapshot_bytes": 132.0,
+          "snapshot_over_old": 0.5789473684210527
+        },
+        {
+          "fields_stored": 32,
+          "undo_success_rate": 0.98235,
+          "mean_snapshot_bytes": 172.0,
+          "snapshot_over_old": 0.7543859649122807
+        },
+        {
+          "fields_stored": 40,
+          "undo_success_rate": 0.9928,
+          "mean_snapshot_bytes": 212.0,
+          "snapshot_over_old": 0.9298245614035088
+        },
+        {
+          "fields_stored": 48,
+          "undo_success_rate": 0.99845,
+          "mean_snapshot_bytes": 252.0,
+          "snapshot_over_old": 1.105263157894737
+        },
+        {
+          "fields_stored": 49,
+          "undo_success_rate": 0.9989,
+          "mean_snapshot_bytes": 257.0,
+          "snapshot_over_old": 1.1271929824561404
+        },
+        {
+          "fields_stored": 50,
+          "undo_success_rate": 0.9991,
+          "mean_snapshot_bytes": 262.0,
+          "snapshot_over_old": 1.1491228070175439
+        },
+        {
+          "fields_stored": 51,
+          "undo_success_rate": 0.9996,
+          "mean_snapshot_bytes": 267.0,
+          "snapshot_over_old": 1.1710526315789473
+        },
+        {
+          "fields_stored": 52,
+          "undo_success_rate": 0.99985,
+          "mean_snapshot_bytes": 272.0,
+          "snapshot_over_old": 1.1929824561403508
+        },
+        {
+          "fields_stored": 53,
+          "undo_success_rate": 1.0,
+          "mean_snapshot_bytes": 277.0,
+          "snapshot_over_old": 1.2149122807017543
+        },
+        {
+          "fields_stored": 54,
+          "undo_success_rate": 1.0,
+          "mean_snapshot_bytes": 282.0,
+          "snapshot_over_old": 1.236842105263158
+        },
+        {
+          "fields_stored": 55,
+          "undo_success_rate": 1.0,
+          "mean_snapshot_bytes": 285.0,
+          "snapshot_over_old": 1.25
+        },
+        {
+          "fields_stored": 56,
+          "undo_success_rate": 1.0,
+          "mean_snapshot_bytes": 290.0,
+          "snapshot_over_old": 1.2719298245614035
+        },
+        {
+          "fields_stored": 57,
+          "undo_success_rate": 1.0,
+          "mean_snapshot_bytes": 295.0,
+          "snapshot_over_old": 1.293859649122807
+        }
+      ],
+      "predicted": [
+        {
+          "fields_stored": 1,
+          "undo_success_rate": 0.0,
+          "mean_snapshot_bytes": 15.0,
+          "snapshot_over_old": 0.06578947368421052
+        },
+        {
+          "fields_stored": 2,
+          "undo_success_rate": 0.0,
+          "mean_snapshot_bytes": 18.0,
+          "snapshot_over_old": 0.07894736842105263
+        },
+        {
+          "fields_stored": 3,
+          "undo_success_rate": 0.0,
+          "mean_snapshot_bytes": 21.0,
+          "snapshot_over_old": 0.09210526315789473
+        },
+        {
+          "fields_stored": 5,
+          "undo_success_rate": 0.0,
+          "mean_snapshot_bytes": 31.0,
+          "snapshot_over_old": 0.13596491228070176
+        },
+        {
+          "fields_stored": 8,
+          "undo_success_rate": 0.0,
+          "mean_snapshot_bytes": 46.0,
+          "snapshot_over_old": 0.20175438596491227
+        },
+        {
+          "fields_stored": 12,
+          "undo_success_rate": 0.0,
+          "mean_snapshot_bytes": 66.0,
+          "snapshot_over_old": 0.2894736842105263
+        },
+        {
+          "fields_stored": 16,
+          "undo_success_rate": 0.0,
+          "mean_snapshot_bytes": 86.0,
+          "snapshot_over_old": 0.37719298245614036
+        },
+        {
+          "fields_stored": 24,
+          "undo_success_rate": 0.0,
+          "mean_snapshot_bytes": 126.0,
+          "snapshot_over_old": 0.5526315789473685
+        },
+        {
+          "fields_stored": 32,
+          "undo_success_rate": 0.0,
+          "mean_snapshot_bytes": 166.0,
+          "snapshot_over_old": 0.7280701754385965
+        },
+        {
+          "fields_stored": 40,
+          "undo_success_rate": 0.0,
+          "mean_snapshot_bytes": 206.0,
+          "snapshot_over_old": 0.9035087719298246
+        },
+        {
+          "fields_stored": 48,
+          "undo_success_rate": 0.0,
+          "mean_snapshot_bytes": 246.0,
+          "snapshot_over_old": 1.0789473684210527
+        },
+        {
+          "fields_stored": 49,
+          "undo_success_rate": 0.0,
+          "mean_snapshot_bytes": 251.0,
+          "snapshot_over_old": 1.1008771929824561
+        },
+        {
+          "fields_stored": 50,
+          "undo_success_rate": 0.0,
+          "mean_snapshot_bytes": 256.0,
+          "snapshot_over_old": 1.1228070175438596
+        },
+        {
+          "fields_stored": 51,
+          "undo_success_rate": 0.0,
+          "mean_snapshot_bytes": 261.0,
+          "snapshot_over_old": 1.144736842105263
+        },
+        {
+          "fields_stored": 52,
+          "undo_success_rate": 0.0,
+          "mean_snapshot_bytes": 266.0,
+          "snapshot_over_old": 1.1666666666666667
+        },
+        {
+          "fields_stored": 53,
+          "undo_success_rate": 0.0,
+          "mean_snapshot_bytes": 271.0,
+          "snapshot_over_old": 1.1885964912280702
+        },
+        {
+          "fields_stored": 54,
+          "undo_success_rate": 0.0,
+          "mean_snapshot_bytes": 276.0,
+          "snapshot_over_old": 1.2105263157894737
+        },
+        {
+          "fields_stored": 55,
+          "undo_success_rate": 0.0,
+          "mean_snapshot_bytes": 281.0,
+          "snapshot_over_old": 1.2324561403508771
+        },
+        {
+          "fields_stored": 56,
+          "undo_success_rate": 1.0,
+          "mean_snapshot_bytes": 290.0,
+          "snapshot_over_old": 1.2719298245614035
+        },
+        {
+          "fields_stored": 57,
+          "undo_success_rate": 1.0,
+          "mean_snapshot_bytes": 295.0,
+          "snapshot_over_old": 1.293859649122807
+        }
+      ]
+    },
+    "delta_per_record": {
+      "undo_success_rate": 1.0,
+      "mean_snapshot_bytes": 24.4232,
+      "snapshot_over_old": 0.10711929824561404
+    },
+    "full": {
+      "undo_success_rate": 1.0,
+      "mean_snapshot_bytes": 237.0,
+      "snapshot_over_old": 1.0394736842105263
+    }
+  },
+  "large": {
+    "records": 20000,
+    "frequency_sample": 50000,
+    "field_failure_frequency": {
+      "magic": 0,
+      "version": 0,
+      "flags": 1011,
+      "path_len": 0,
+      "path[0]": 22,
+      "path[1]": 15,
+      "path[2]": 18,
+      "path[3]": 21,
+      "path[4]": 18,
+      "path[5]": 28,
+      "path[6]": 26,
+      "path[7]": 26,
+      "path[8]": 44,
+      "path[9]": 58,
+      "path[10]": 42,
+      "path[11]": 46,
+      "path[12]": 64,
+      "path[13]": 60,
+      "path[14]": 69,
+      "path[15]": 63,
+      "path[16]": 71,
+      "path[17]": 76,
+      "path[18]": 73,
+      "path[19]": 76,
+      "path[20]": 101,
+      "path[21]": 82,
+      "path[22]": 90,
+      "path[23]": 77,
+      "path[24]": 80,
+      "path[25]": 81,
+      "path[26]": 85,
+      "path[27]": 79,
+      "path[28]": 74,
+      "path[29]": 102,
+      "path[30]": 72,
+      "path[31]": 84,
+      "path[32]": 104,
+      "path[33]": 73,
+      "path[34]": 80,
+      "path[35]": 72,
+      "path[36]": 77,
+      "path[37]": 67,
+      "path[38]": 92,
+      "path[39]": 83,
+      "path[40]": 73,
+      "path[41]": 67,
+      "path[42]": 76,
+      "path[43]": 78,
+      "path[44]": 79,
+      "path[45]": 78,
+      "path[46]": 81,
+      "path[47]": 83,
+      "start_idx": 168,
+      "goal_idx": 153,
+      "cost": 0,
+      "created_at": 50000,
+      "checksum": 50000
+    },
+    "curves": {
+      "empirical": [
+        {
+          "fields_stored": 1,
+          "undo_success_rate": 0.90995,
+          "mean_snapshot_bytes": 19.0,
+          "snapshot_over_old": 0.08333333333333333
+        },
+        {
+          "fields_stored": 2,
+          "undo_success_rate": 0.90995,
+          "mean_snapshot_bytes": 24.0,
+          "snapshot_over_old": 0.10526315789473684
+        },
+        {
+          "fields_stored": 3,
+          "undo_success_rate": 0.9309,
+          "mean_snapshot_bytes": 27.0,
+          "snapshot_over_old": 0.11842105263157894
+        },
+        {
+          "fields_stored": 5,
+          "undo_success_rate": 0.9374,
+          "mean_snapshot_bytes": 37.0,
+          "snapshot_over_old": 0.16228070175438597
+        },
+        {
+          "fields_stored": 8,
+          "undo_success_rate": 0.943,
+          "mean_snapshot_bytes": 52.0,
+          "snapshot_over_old": 0.22807017543859648
+        },
+        {
+          "fields_stored": 12,
+          "undo_success_rate": 0.9493,
+          "mean_snapshot_bytes": 72.0,
+          "snapshot_over_old": 0.3157894736842105
+        },
+        {
+          "fields_stored": 16,
+          "undo_success_rate": 0.95635,
+          "mean_snapshot_bytes": 92.0,
+          "snapshot_over_old": 0.40350877192982454
+        },
+        {
+          "fields_stored": 24,
+          "undo_success_rate": 0.96855,
+          "mean_snapshot_bytes": 132.0,
+          "snapshot_over_old": 0.5789473684210527
+        },
+        {
+          "fields_stored": 32,
+          "undo_success_rate": 0.9805,
+          "mean_snapshot_bytes": 172.0,
+          "snapshot_over_old": 0.7543859649122807
+        },
+        {
+          "fields_stored": 40,
+          "undo_success_rate": 0.9917,
+          "mean_snapshot_bytes": 212.0,
+          "snapshot_over_old": 0.9298245614035088
+        },
+        {
+          "fields_stored": 48,
+          "undo_success_rate": 0.9982,
+          "mean_snapshot_bytes": 252.0,
+          "snapshot_over_old": 1.105263157894737
+        },
+        {
+          "fields_stored": 49,
+          "undo_success_rate": 0.9984,
+          "mean_snapshot_bytes": 257.0,
+          "snapshot_over_old": 1.1271929824561404
+        },
+        {
+          "fields_stored": 50,
+          "undo_success_rate": 0.9989,
+          "mean_snapshot_bytes": 262.0,
+          "snapshot_over_old": 1.1491228070175439
+        },
+        {
+          "fields_stored": 51,
+          "undo_success_rate": 0.99925,
+          "mean_snapshot_bytes": 267.0,
+          "snapshot_over_old": 1.1710526315789473
+        },
+        {
+          "fields_stored": 52,
+          "undo_success_rate": 0.9997,
+          "mean_snapshot_bytes": 272.0,
+          "snapshot_over_old": 1.1929824561403508
+        },
+        {
+          "fields_stored": 53,
+          "undo_success_rate": 1.0,
+          "mean_snapshot_bytes": 277.0,
+          "snapshot_over_old": 1.2149122807017543
+        },
+        {
+          "fields_stored": 54,
+          "undo_success_rate": 1.0,
+          "mean_snapshot_bytes": 282.0,
+          "snapshot_over_old": 1.236842105263158
+        },
+        {
+          "fields_stored": 55,
+          "undo_success_rate": 1.0,
+          "mean_snapshot_bytes": 285.0,
+          "snapshot_over_old": 1.25
+        },
+        {
+          "fields_stored": 56,
+          "undo_success_rate": 1.0,
+          "mean_snapshot_bytes": 290.0,
+          "snapshot_over_old": 1.2719298245614035
+        },
+        {
+          "fields_stored": 57,
+          "undo_success_rate": 1.0,
+          "mean_snapshot_bytes": 295.0,
+          "snapshot_over_old": 1.293859649122807
+        }
+      ],
+      "predicted": [
+        {
+          "fields_stored": 1,
+          "undo_success_rate": 0.0,
+          "mean_snapshot_bytes": 15.0,
+          "snapshot_over_old": 0.06578947368421052
+        },
+        {
+          "fields_stored": 2,
+          "undo_success_rate": 0.0,
+          "mean_snapshot_bytes": 18.0,
+          "snapshot_over_old": 0.07894736842105263
+        },
+        {
+          "fields_stored": 3,
+          "undo_success_rate": 0.0,
+          "mean_snapshot_bytes": 21.0,
+          "snapshot_over_old": 0.09210526315789473
+        },
+        {
+          "fields_stored": 5,
+          "undo_success_rate": 0.0,
+          "mean_snapshot_bytes": 31.0,
+          "snapshot_over_old": 0.13596491228070176
+        },
+        {
+          "fields_stored": 8,
+          "undo_success_rate": 0.0,
+          "mean_snapshot_bytes": 46.0,
+          "snapshot_over_old": 0.20175438596491227
+        },
+        {
+          "fields_stored": 12,
+          "undo_success_rate": 0.0,
+          "mean_snapshot_bytes": 66.0,
+          "snapshot_over_old": 0.2894736842105263
+        },
+        {
+          "fields_stored": 16,
+          "undo_success_rate": 0.0,
+          "mean_snapshot_bytes": 86.0,
+          "snapshot_over_old": 0.37719298245614036
+        },
+        {
+          "fields_stored": 24,
+          "undo_success_rate": 0.0,
+          "mean_snapshot_bytes": 126.0,
+          "snapshot_over_old": 0.5526315789473685
+        },
+        {
+          "fields_stored": 32,
+          "undo_success_rate": 0.0,
+          "mean_snapshot_bytes": 166.0,
+          "snapshot_over_old": 0.7280701754385965
+        },
+        {
+          "fields_stored": 40,
+          "undo_success_rate": 0.0,
+          "mean_snapshot_bytes": 206.0,
+          "snapshot_over_old": 0.9035087719298246
+        },
+        {
+          "fields_stored": 48,
+          "undo_success_rate": 0.0,
+          "mean_snapshot_bytes": 246.0,
+          "snapshot_over_old": 1.0789473684210527
+        },
+        {
+          "fields_stored": 49,
+          "undo_success_rate": 0.0,
+          "mean_snapshot_bytes": 251.0,
+          "snapshot_over_old": 1.1008771929824561
+        },
+        {
+          "fields_stored": 50,
+          "undo_success_rate": 0.0,
+          "mean_snapshot_bytes": 256.0,
+          "snapshot_over_old": 1.1228070175438596
+        },
+        {
+          "fields_stored": 51,
+          "undo_success_rate": 0.0,
+          "mean_snapshot_bytes": 261.0,
+          "snapshot_over_old": 1.144736842105263
+        },
+        {
+          "fields_stored": 52,
+          "undo_success_rate": 0.0,
+          "mean_snapshot_bytes": 266.0,
+          "snapshot_over_old": 1.1666666666666667
+        },
+        {
+          "fields_stored": 53,
+          "undo_success_rate": 0.0,
+          "mean_snapshot_bytes": 271.0,
+          "snapshot_over_old": 1.1885964912280702
+        },
+        {
+          "fields_stored": 54,
+          "undo_success_rate": 0.0,
+          "mean_snapshot_bytes": 276.0,
+          "snapshot_over_old": 1.2105263157894737
+        },
+        {
+          "fields_stored": 55,
+          "undo_success_rate": 0.0,
+          "mean_snapshot_bytes": 281.0,
+          "snapshot_over_old": 1.2324561403508771
+        },
+        {
+          "fields_stored": 56,
+          "undo_success_rate": 1.0,
+          "mean_snapshot_bytes": 290.0,
+          "snapshot_over_old": 1.2719298245614035
+        },
+        {
+          "fields_stored": 57,
+          "undo_success_rate": 1.0,
+          "mean_snapshot_bytes": 295.0,
+          "snapshot_over_old": 1.293859649122807
+        }
+      ]
+    },
+    "delta_per_record": {
+      "undo_success_rate": 1.0,
+      "mean_snapshot_bytes": 24.40835,
+      "snapshot_over_old": 0.10705416666666666
+    },
+    "full": {
+      "undo_success_rate": 1.0,
+      "mean_snapshot_bytes": 237.0,
+      "snapshot_over_old": 1.0394736842105263
+    }
+  }
+}

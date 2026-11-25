@@ -1,0 +1,1011 @@
+{
+  "small": {
+    "size": "small",
+    "records": 5000,
+    "old_bytes": 1140000,
+    "noncanonical_records": 498,
+    "noncanonical_rate": 0.0996,
+    "elapsed_s": 1.341,
+    "schemes": {
+      "stateless": {
+        "records": 5000,
+        "undo_success_rate": 0.0,
+        "inconsistency_rate": 1.0,
+        "mean_snapshot_bytes": 10.0,
+        "max_snapshot_bytes": 10,
+        "snapshot_over_old": 0.043859649122807015,
+        "mean_stored_fields": 0.0,
+        "failure_field_counts": {
+          "created_at": 5000,
+          "checksum": 5000,
+          "path": 309,
+          "flags": 101,
+          "goal_idx": 14,
+          "start_idx": 15
+        },
+        "independent_decoder_mismatches": 0,
+        "sample_failures": [
+          {
+            "record": 0,
+            "scheme": "stateless",
+            "fields": [
+              {
+                "field": "created_at",
+                "offset": 216,
+                "size": 8,
+                "old_hex": "0020c10a03650600",
+                "new_hex": "0080982817650600",
+                "old_value": 1799913600000000,
+                "new_value": 1800000000000000,
+                "recovery": "store"
+              },
+              {
+                "field": "checksum",
+                "offset": 224,
+                "size": 4,
+                "old_hex": "8b6bb6b7",
+                "new_hex": "765de6bf",
+                "old_value": 3082185611,
+                "new_value": 3219545462,
+                "recovery": "recompute"
+              }
+            ]
+          },
+          {
+            "record": 1,
+            "scheme": "stateless",
+            "fields": [
+              {
+                "field": "created_at",
+                "offset": 216,
+                "size": 8,
+                "old_hex": "4362d00a03650600",
+                "new_hex": "0180982817650600",
+                "old_value": 1799913601000003,
+                "new_value": 1800000000000001,
+                "recovery": "store"
+              },
+              {
+                "field": "checksum",
+                "offset": 224,
+                "size": 4,
+                "old_hex": "4eeb6d39",
+                "new_hex": "4dad9b41",
+                "old_value": 963504974,
+                "new_value": 1100721485,
+                "recovery": "recompute"
+              }
+            ]
+          },
+          {
+            "record": 2,
+            "scheme": "stateless",
+            "fields": [
+              {
+                "field": "created_at",
+                "offset": 216,
+                "size": 8,
+                "old_hex": "86a4df0a03650600",
+                "new_hex": "0280982817650600",
+                "old_value": 1799913602000006,
+                "new_value": 1800000000000002,
+                "recovery": "store"
+              },
+              {
+                "field": "checksum",
+                "offset": 224,
+                "size": 4,
+                "old_hex": "435feb60",
+                "new_hex": "944f4ffa",
+                "old_value": 1626038083,
+                "new_value": 4199501716,
+                "recovery": "recompute"
+              }
+            ]
+          },
+          {
+            "record": 3,
+            "scheme": "stateless",
+            "fields": [
+              {
+                "field": "created_at",
+                "offset": 216,
+                "size": 8,
+                "old_hex": "c9e6ee0a03650600",
+                "new_hex": "0380982817650600",
+                "old_value": 1799913603000009,
+                "new_value": 1800000000000003,
+                "recovery": "store"
+              },
+              {
+                "field": "checksum",
+                "offset": 224,
+                "size": 4,
+                "old_hex": "d93f6052",
+                "new_hex": "894f61e8",
+                "old_value": 1382039513,
+                "new_value": 3898691465,
+                "recovery": "recompute"
+              }
+            ]
+          },
+          {
+            "record": 4,
+            "scheme": "stateless",
+            "fields": [
+              {
+                "field": "created_at",
+                "offset": 216,
+                "size": 8,
+                "old_hex": "0c29fe0a03650600",
+                "new_hex": "0480982817650600",
+                "old_value": 1799913604000012,
+                "new_value": 1800000000000004,
+                "recovery": "store"
+              },
+              {
+                "field": "checksum",
+                "offset": 224,
+                "size": 4,
+                "old_hex": "a68c154f",
+                "new_hex": "455114f4",
+                "old_value": 1326812326,
+                "new_value": 4094972229,
+                "recovery": "recompute"
+              }
+            ]
+          }
+        ]
+      },
+      "predicted": {
+        "records": 5000,
+        "undo_success_rate": 0.9122,
+        "inconsistency_rate": 0.08779999999999999,
+        "mean_snapshot_bytes": 19.0,
+        "max_snapshot_bytes": 19,
+        "snapshot_over_old": 0.08333333333333333,
+        "mean_stored_fields": 1.0,
+        "failure_field_counts": {
+          "path": 309,
+          "checksum": 439,
+          "flags": 101,
+          "goal_idx": 14,
+          "start_idx": 15
+        },
+        "independent_decoder_mismatches": 0,
+        "sample_failures": [
+          {
+            "record": 7,
+            "scheme": "predicted",
+            "fields": [
+              {
+                "field": "path[20]",
+                "offset": 92,
+                "size": 4,
+                "old_hex": "abdb9f93",
+                "new_hex": "00000000",
+                "old_value": 2476727211,
+                "new_value": 0,
+                "recovery": "inverse"
+              },
+              {
+                "field": "checksum",
+                "offset": 224,
+                "size": 4,
+                "old_hex": "b6c8967f",
+                "new_hex": "c985f4b6",
+                "old_value": 2140588214,
+                "new_value": 3069478345,
+                "recovery": "recompute"
+              }
+            ]
+          },
+          {
+            "record": 11,
+            "scheme": "predicted",
+            "fields": [
+              {
+                "field": "path[46]",
+                "offset": 196,
+                "size": 4,
+                "old_hex": "d9f00e2c",
+                "new_hex": "00000000",
+                "old_value": 739176665,
+                "new_value": 0,
+                "recovery": "inverse"
+              },
+              {
+                "field": "checksum",
+                "offset": 224,
+                "size": 4,
+                "old_hex": "b5f6eca5",
+                "new_hex": "4c9a4fd6",
+                "old_value": 2783770293,
+                "new_value": 3595541068,
+                "recovery": "recompute"
+              }
+            ]
+          },
+          {
+            "record": 36,
+            "scheme": "predicted",
+            "fields": [
+              {
+                "field": "path[45]",
+                "offset": 192,
+                "size": 4,
+                "old_hex": "991be80a",
+                "new_hex": "00000000",
+                "old_value": 182983577,
+                "new_value": 0,
+                "recovery": "inverse"
+              },
+              {
+                "field": "checksum",
+                "offset": 224,
+                "size": 4,
+                "old_hex": "db47d312",
+                "new_hex": "5b96d9e5",
+                "old_value": 315836379,
+                "new_value": 3856242267,
+                "recovery": "recompute"
+              }
+            ]
+          },
+          {
+            "record": 42,
+            "scheme": "predicted",
+            "fields": [
+              {
+                "field": "path[41]",
+                "offset": 176,
+                "size": 4,
+                "old_hex": "200b3b9e",
+                "new_hex": "00000000",
+                "old_value": 2654669600,
+                "new_value": 0,
+                "recovery": "inverse"
+              },
+              {
+                "field": "checksum",
+                "offset": 224,
+                "size": 4,
+                "old_hex": "5e118887",
+                "new_hex": "9f501bf5",
+                "old_value": 2273841502,
+                "new_value": 4112208031,
+                "recovery": "recompute"
+              }
+            ]
+          },
+          {
+            "record": 43,
+            "scheme": "predicted",
+            "fields": [
+              {
+                "field": "path[36]",
+                "offset": 156,
+                "size": 4,
+                "old_hex": "f64e29f5",
+                "new_hex": "00000000",
+                "old_value": 4113125110,
+                "new_value": 0,
+                "recovery": "inverse"
+              },
+              {
+                "field": "checksum",
+                "offset": 224,
+                "size": 4,
+                "old_hex": "a3f48af4",
+                "new_hex": "040d1614",
+                "old_value": 4102747299,
+                "new_value": 336989444,
+                "recovery": "recompute"
+              }
+            ]
+          }
+        ]
+      },
+      "delta": {
+        "records": 5000,
+        "undo_success_rate": 1.0,
+        "inconsistency_rate": 0.0,
+        "mean_snapshot_bytes": 24.3986,
+        "max_snapshot_bytes": 29,
+        "snapshot_over_old": 0.10701140350877192,
+        "mean_stored_fields": 2.0878,
+        "failure_field_counts": {},
+        "independent_decoder_mismatches": 0,
+        "sample_failures": []
+      },
+      "full": {
+        "records": 5000,
+        "undo_success_rate": 1.0,
+        "inconsistency_rate": 0.0,
+        "mean_snapshot_bytes": 237.0,
+        "max_snapshot_bytes": 237,
+        "snapshot_over_old": 1.0394736842105263,
+        "mean_stored_fields": 57.0,
+        "failure_field_counts": {},
+        "independent_decoder_mismatches": 0,
+        "sample_failures": []
+      }
+    }
+  },
+  "medium": {
+    "size": "medium",
+    "records": 50000,
+    "old_bytes": 11400000,
+    "noncanonical_records": 5079,
+    "noncanonical_rate": 0.10158,
+    "elapsed_s": 13.224,
+    "schemes": {
+      "stateless": {
+        "records": 50000,
+        "undo_success_rate": 0.0,
+        "inconsistency_rate": 1.0,
+        "mean_snapshot_bytes": 10.0,
+        "max_snapshot_bytes": 10,
+        "snapshot_over_old": 0.043859649122807015,
+        "mean_stored_fields": 0.0,
+        "failure_field_counts": {
+          "created_at": 50000,
+          "checksum": 50000,
+          "flags": 1044,
+          "path": 3217,
+          "start_idx": 147,
+          "goal_idx": 183
+        },
+        "independent_decoder_mismatches": 0,
+        "sample_failures": [
+          {
+            "record": 0,
+            "scheme": "stateless",
+            "fields": [
+              {
+                "field": "created_at",
+                "offset": 216,
+                "size": 8,
+                "old_hex": "0020c10a03650600",
+                "new_hex": "0080982817650600",
+                "old_value": 1799913600000000,
+                "new_value": 1800000000000000,
+                "recovery": "store"
+              },
+              {
+                "field": "checksum",
+                "offset": 224,
+                "size": 4,
+                "old_hex": "b93d8d50",
+                "new_hex": "440bdd58",
+                "old_value": 1351433657,
+                "new_value": 1490881348,
+                "recovery": "recompute"
+              }
+            ]
+          },
+          {
+            "record": 1,
+            "scheme": "stateless",
+            "fields": [
+              {
+                "field": "created_at",
+                "offset": 216,
+                "size": 8,
+                "old_hex": "4362d00a03650600",
+                "new_hex": "0180982817650600",
+                "old_value": 1799913601000003,
+                "new_value": 1800000000000001,
+                "recovery": "store"
+              },
+              {
+                "field": "checksum",
+                "offset": 224,
+                "size": 4,
+                "old_hex": "ce41a6ec",
+                "new_hex": "cd075094",
+                "old_value": 3970318798,
+                "new_value": 2488272845,
+                "recovery": "recompute"
+              }
+            ]
+          },
+          {
+            "record": 2,
+            "scheme": "stateless",
+            "fields": [
+              {
+                "field": "flags",
+                "offset": 6,
+                "size": 2,
+                "old_hex": "0100",
+                "new_hex": "0000",
+                "old_value": 1,
+                "new_value": 0,
+                "recovery": "inverse"
+              },
+              {
+                "field": "created_at",
+                "offset": 216,
+                "size": 8,
+                "old_hex": "86a4df0a03650600",
+                "new_hex": "0280982817650600",
+                "old_value": 1799913602000006,
+                "new_value": 1800000000000002,
+                "recovery": "store"
+              },
+              {
+                "field": "checksum",
+                "offset": 224,
+                "size": 4,
+                "old_hex": "c43bc29d",
+                "new_hex": "d2adda91",
+                "old_value": 2646752196,
+                "new_value": 2447027666,
+                "recovery": "recompute"
+              }
+            ]
+          },
+          {
+            "record": 3,
+            "scheme": "stateless",
+            "fields": [
+              {
+                "field": "created_at",
+                "offset": 216,
+                "size": 8,
+                "old_hex": "c9e6ee0a03650600",
+                "new_hex": "0380982817650600",
+                "old_value": 1799913603000009,
+                "new_value": 1800000000000003,
+                "recovery": "store"
+              },
+              {
+                "field": "checksum",
+                "offset": 224,
+                "size": 4,
+                "old_hex": "ebe9af5e",
+                "new_hex": "bb99aee4",
+                "old_value": 1588586987,
+                "new_value": 3836647867,
+                "recovery": "recompute"
+              }
+            ]
+          },
+          {
+            "record": 4,
+            "scheme": "stateless",
+            "fields": [
+              {
+                "field": "created_at",
+                "offset": 216,
+                "size": 8,
+                "old_hex": "0c29fe0a03650600",
+                "new_hex": "0480982817650600",
+                "old_value": 1799913604000012,
+                "new_value": 1800000000000004,
+                "recovery": "store"
+              },
+              {
+                "field": "checksum",
+                "offset": 224,
+                "size": 4,
+                "old_hex": "1164d8db",
+                "new_hex": "f2b9d960",
+                "old_value": 3688391697,
+                "new_value": 1624881650,
+                "recovery": "recompute"
+              }
+            ]
+          }
+        ]
+      },
+      "predicted": {
+        "records": 50000,
+        "undo_success_rate": 0.90818,
+        "inconsistency_rate": 0.09182000000000001,
+        "mean_snapshot_bytes": 19.0,
+        "max_snapshot_bytes": 19,
+        "snapshot_over_old": 0.08333333333333333,
+        "mean_stored_fields": 1.0,
+        "failure_field_counts": {
+          "flags": 1044,
+          "checksum": 4591,
+          "path": 3217,
+          "start_idx": 147,
+          "goal_idx": 183
+        },
+        "independent_decoder_mismatches": 0,
+        "sample_failures": [
+          {
+            "record": 2,
+            "scheme": "predicted",
+            "fields": [
+              {
+                "field": "flags",
+                "offset": 6,
+                "size": 2,
+                "old_hex": "0100",
+                "new_hex": "0000",
+                "old_value": 1,
+                "new_value": 0,
+                "recovery": "inverse"
+              },
+              {
+                "field": "checksum",
+                "offset": 224,
+                "size": 4,
+                "old_hex": "c43bc29d",
+                "new_hex": "05bd7e0b",
+                "old_value": 2646752196,
+                "new_value": 192855301,
+                "recovery": "recompute"
+              }
+            ]
+          },
+          {
+            "record": 8,
+            "scheme": "predicted",
+            "fields": [
+              {
+                "field": "path[19]",
+                "offset": 88,
+                "size": 4,
+                "old_hex": "878b8c41",
+                "new_hex": "00000000",
+                "old_value": 1099729799,
+                "new_value": 0,
+                "recovery": "inverse"
+              },
+              {
+                "field": "checksum",
+                "offset": 224,
+                "size": 4,
+                "old_hex": "6f262921",
+                "new_hex": "b57dcf7e",
+                "old_value": 556344943,
+                "new_value": 2127527349,
+                "recovery": "recompute"
+              }
+            ]
+          },
+          {
+            "record": 16,
+            "scheme": "predicted",
+            "fields": [
+              {
+                "field": "flags",
+                "offset": 6,
+                "size": 2,
+                "old_hex": "0100",
+                "new_hex": "0000",
+                "old_value": 1,
+                "new_value": 0,
+                "recovery": "inverse"
+              },
+              {
+                "field": "checksum",
+                "offset": 224,
+                "size": 4,
+                "old_hex": "ee63a5dc",
+                "new_hex": "2fe5194a",
+                "old_value": 3701826542,
+                "new_value": 1243211055,
+                "recovery": "recompute"
+              }
+            ]
+          },
+          {
+            "record": 26,
+            "scheme": "predicted",
+            "fields": [
+              {
+                "field": "path[16]",
+                "offset": 76,
+                "size": 4,
+                "old_hex": "8313e9f1",
+                "new_hex": "00000000",
+                "old_value": 4058583939,
+                "new_value": 0,
+                "recovery": "inverse"
+              },
+              {
+                "field": "checksum",
+                "offset": 224,
+                "size": 4,
+                "old_hex": "644f4f46",
+                "new_hex": "ce57311e",
+                "old_value": 1179602788,
+                "new_value": 506550222,
+                "recovery": "recompute"
+              }
+            ]
+          },
+          {
+            "record": 36,
+            "scheme": "predicted",
+            "fields": [
+              {
+                "field": "path[43]",
+                "offset": 184,
+                "size": 4,
+                "old_hex": "f39f2e9d",
+                "new_hex": "00000000",
+                "old_value": 2637078515,
+                "new_value": 0,
+                "recovery": "inverse"
+              },
+              {
+                "field": "checksum",
+                "offset": 224,
+                "size": 4,
+                "old_hex": "220c6473",
+                "new_hex": "df4af905",
+                "old_value": 1935936546,
+                "new_value": 100223711,
+                "recovery": "recompute"
+              }
+            ]
+          }
+        ]
+      },
+      "delta": {
+        "records": 50000,
+        "undo_success_rate": 1.0,
+        "inconsistency_rate": 0.0,
+        "mean_snapshot_bytes": 24.41734,
+        "max_snapshot_bytes": 29,
+        "snapshot_over_old": 0.10709359649122807,
+        "mean_stored_fields": 2.09182,
+        "failure_field_counts": {},
+        "independent_decoder_mismatches": 0,
+        "sample_failures": []
+      },
+      "full": {
+        "records": 50000,
+        "undo_success_rate": 1.0,
+        "inconsistency_rate": 0.0,
+        "mean_snapshot_bytes": 237.0,
+        "max_snapshot_bytes": 237,
+        "snapshot_over_old": 1.0394736842105263,
+        "mean_stored_fields": 57.0,
+        "failure_field_counts": {},
+        "independent_decoder_mismatches": 0,
+        "sample_failures": []
+      }
+    }
+  },
+  "large": {
+    "size": "large",
+    "records": 500000,
+    "old_bytes": 114000000,
+    "noncanonical_records": 50079,
+    "noncanonical_rate": 0.100158,
+    "elapsed_s": 135.214,
+    "schemes": {
+      "stateless": {
+        "records": 500000,
+        "undo_success_rate": 0.0,
+        "inconsistency_rate": 1.0,
+        "mean_snapshot_bytes": 10.0,
+        "max_snapshot_bytes": 10,
+        "snapshot_over_old": 0.043859649122807015,
+        "mean_stored_fields": 0.0,
+        "failure_field_counts": {
+          "created_at": 500000,
+          "checksum": 500000,
+          "flags": 10083,
+          "path": 31659,
+          "goal_idx": 1653,
+          "start_idx": 1662
+        },
+        "independent_decoder_mismatches": 0,
+        "sample_failures": [
+          {
+            "record": 0,
+            "scheme": "stateless",
+            "fields": [
+              {
+                "field": "created_at",
+                "offset": 216,
+                "size": 8,
+                "old_hex": "0020c10a03650600",
+                "new_hex": "0080982817650600",
+                "old_value": 1799913600000000,
+                "new_value": 1800000000000000,
+                "recovery": "store"
+              },
+              {
+                "field": "checksum",
+                "offset": 224,
+                "size": 4,
+                "old_hex": "598a6ec4",
+                "new_hex": "a4bc3ecc",
+                "old_value": 3295578713,
+                "new_value": 3426663588,
+                "recovery": "recompute"
+              }
+            ]
+          },
+          {
+            "record": 1,
+            "scheme": "stateless",
+            "fields": [
+              {
+                "field": "created_at",
+                "offset": 216,
+                "size": 8,
+                "old_hex": "4362d00a03650600",
+                "new_hex": "0180982817650600",
+                "old_value": 1799913601000003,
+                "new_value": 1800000000000001,
+                "recovery": "store"
+              },
+              {
+                "field": "checksum",
+                "offset": 224,
+                "size": 4,
+                "old_hex": "95126f6c",
+                "new_hex": "96549914",
+                "old_value": 1819218581,
+                "new_value": 345592982,
+                "recovery": "recompute"
+              }
+            ]
+          },
+          {
+            "record": 2,
+            "scheme": "stateless",
+            "fields": [
+              {
+                "field": "created_at",
+                "offset": 216,
+                "size": 8,
+                "old_hex": "86a4df0a03650600",
+                "new_hex": "0280982817650600",
+                "old_value": 1799913602000006,
+                "new_value": 1800000000000002,
+                "recovery": "store"
+              },
+              {
+                "field": "checksum",
+                "offset": 224,
+                "size": 4,
+                "old_hex": "54b192e9",
+                "new_hex": "83a13673",
+                "old_value": 3918704980,
+                "new_value": 1932960131,
+                "recovery": "recompute"
+              }
+            ]
+          },
+          {
+            "record": 3,
+            "scheme": "stateless",
+            "fields": [
+              {
+                "field": "created_at",
+                "offset": 216,
+                "size": 8,
+                "old_hex": "c9e6ee0a03650600",
+                "new_hex": "0380982817650600",
+                "old_value": 1799913603000009,
+                "new_value": 1800000000000003,
+                "recovery": "store"
+              },
+              {
+                "field": "checksum",
+                "offset": 224,
+                "size": 4,
+                "old_hex": "154fbf08",
+                "new_hex": "453fbeb2",
+                "old_value": 146755349,
+                "new_value": 2998812485,
+                "recovery": "recompute"
+              }
+            ]
+          },
+          {
+            "record": 4,
+            "scheme": "stateless",
+            "fields": [
+              {
+                "field": "created_at",
+                "offset": 216,
+                "size": 8,
+                "old_hex": "0c29fe0a03650600",
+                "new_hex": "0480982817650600",
+                "old_value": 1799913604000012,
+                "new_value": 1800000000000004,
+                "recovery": "store"
+              },
+              {
+                "field": "checksum",
+                "offset": 224,
+                "size": 4,
+                "old_hex": "a4c355d2",
+                "new_hex": "471e5469",
+                "old_value": 3528836004,
+                "new_value": 1767120455,
+                "recovery": "recompute"
+              }
+            ]
+          }
+        ]
+      },
+      "predicted": {
+        "records": 500000,
+        "undo_success_rate": 0.909886,
+        "inconsistency_rate": 0.09011400000000003,
+        "mean_snapshot_bytes": 19.0,
+        "max_snapshot_bytes": 19,
+        "snapshot_over_old": 0.08333333333333333,
+        "mean_stored_fields": 1.0,
+        "failure_field_counts": {
+          "flags": 10083,
+          "checksum": 45057,
+          "path": 31659,
+          "goal_idx": 1653,
+          "start_idx": 1662
+        },
+        "independent_decoder_mismatches": 0,
+        "sample_failures": [
+          {
+            "record": 16,
+            "scheme": "predicted",
+            "fields": [
+              {
+                "field": "flags",
+                "offset": 6,
+                "size": 2,
+                "old_hex": "0100",
+                "new_hex": "0000",
+                "old_value": 1,
+                "new_value": 0,
+                "recovery": "inverse"
+              },
+              {
+                "field": "checksum",
+                "offset": 224,
+                "size": 4,
+                "old_hex": "40d9f3f0",
+                "new_hex": "815f4f66",
+                "old_value": 4042512704,
+                "new_value": 1716477825,
+                "recovery": "recompute"
+              }
+            ]
+          },
+          {
+            "record": 21,
+            "scheme": "predicted",
+            "fields": [
+              {
+                "field": "path[29]",
+                "offset": 128,
+                "size": 4,
+                "old_hex": "fffefda1",
+                "new_hex": "00000000",
+                "old_value": 2717777663,
+                "new_value": 0,
+                "recovery": "inverse"
+              },
+              {
+                "field": "checksum",
+                "offset": 224,
+                "size": 4,
+                "old_hex": "e682e062",
+                "new_hex": "b82fa73b",
+                "old_value": 1658880742,
+                "new_value": 1000812472,
+                "recovery": "recompute"
+              }
+            ]
+          },
+          {
+            "record": 25,
+            "scheme": "predicted",
+            "fields": [
+              {
+                "field": "path[43]",
+                "offset": 184,
+                "size": 4,
+                "old_hex": "87e8f9d8",
+                "new_hex": "00000000",
+                "old_value": 3640256647,
+                "new_value": 0,
+                "recovery": "inverse"
+              },
+              {
+                "field": "checksum",
+                "offset": 224,
+                "size": 4,
+                "old_hex": "fd74b199",
+                "new_hex": "167d153c",
+                "old_value": 2578543869,
+                "new_value": 1008041238,
+                "recovery": "recompute"
+              }
+            ]
+          },
+          {
+            "record": 52,
+            "scheme": "predicted",
+            "fields": [
+              {
+                "field": "path[24]",
+                "offset": 108,
+                "size": 4,
+                "old_hex": "8e7ba926",
+                "new_hex": "00000000",
+                "old_value": 648641422,
+                "new_value": 0,
+                "recovery": "inverse"
+              },
+              {
+                "field": "checksum",
+                "offset": 224,
+                "size": 4,
+                "old_hex": "fd8e3139",
+                "new_hex": "7255e95d",
+                "old_value": 959549181,
+                "new_value": 1575572850,
+                "recovery": "recompute"
+              }
+            ]
+          },
+          {
+            "record": 63,
+            "scheme": "predicted",
+            "fields": [
+              {
+                "field": "path[28]",
+                "offset": 124,
+                "size": 4,
+                "old_hex": "3aa3356f",
+                "new_hex": "00000000",
+                "old_value": 1865786170,
+                "new_value": 0,
+                "recovery": "inverse"
+              },
+              {
+                "field": "checksum",
+                "offset": 224,
+                "size": 4,
+                "old_hex": "2fae1f61",
+                "new_hex": "0c66c777",
+                "old_value": 1629466159,
+                "new_value": 2009556492,
+                "recovery": "recompute"
+              }
+            ]
+          }
+        ]
+      },
+      "delta": {
+        "records": 500000,
+        "undo_success_rate": 1.0,
+        "inconsistency_rate": 0.0,
+        "mean_snapshot_bytes": 24.410238,
+        "max_snapshot_bytes": 29,
+        "snapshot_over_old": 0.10706244736842105,
+        "mean_stored_fields": 2.090114,
+        "failure_field_counts": {},
+        "independent_decoder_mismatches": 0,
+        "sample_failures": []
+      },
+      "full": {
+        "records": 500000,
+        "undo_success_rate": 1.0,
+        "inconsistency_rate": 0.0,
+        "mean_snapshot_bytes": 237.0,
+        "max_snapshot_bytes": 237,
+        "snapshot_over_old": 1.0394736842105263,
+        "mean_stored_fields": 57.0,
+        "failure_field_counts": {},
+        "independent_decoder_mismatches": 0,
+        "sample_failures": []
+      }
+    }
+  }
+}

@@ -1,0 +1,208 @@
+{
+  "chosen_scheme": "delta",
+  "size_budget": 0.3,
+  "old_record_bytes": 228,
+  "total_fields": 57,
+  "snapshot_wire_header_bytes": 9,
+  "gate_scoped_to": [
+    "small",
+    "medium",
+    "large"
+  ],
+  "gate_passed": true,
+  "gate_problems": [],
+  "inconsistency_sampled_records": 30,
+  "inconsistency_sampled_field_groups": 61,
+  "tiers": {
+    "small": {
+      "records": 5000,
+      "chosen": {
+        "records": 5000,
+        "undo_success_rate": 1.0,
+        "inconsistency_rate": 0.0,
+        "mean_snapshot_bytes": 24.3986,
+        "max_snapshot_bytes": 29,
+        "snapshot_over_old": 0.10701140350877192,
+        "mean_stored_fields": 2.0878,
+        "failure_field_counts": {},
+        "independent_decoder_mismatches": 0,
+        "sample_failures": []
+      },
+      "schemes": {
+        "stateless": {
+          "records": 5000,
+          "undo_success_rate": 0.0,
+          "inconsistency_rate": 1.0,
+          "mean_snapshot_bytes": 10.0,
+          "max_snapshot_bytes": 10,
+          "snapshot_over_old": 0.043859649122807015,
+          "mean_stored_fields": 0.0,
+          "failure_field_counts": {
+            "created_at": 5000,
+            "checksum": 5000,
+            "path": 309,
+            "flags": 101,
+            "goal_idx": 14,
+            "start_idx": 15
+          },
+          "independent_decoder_mismatches": 0
+        },
+        "predicted": {
+          "records": 5000,
+          "undo_success_rate": 0.9122,
+          "inconsistency_rate": 0.08779999999999999,
+          "mean_snapshot_bytes": 19.0,
+          "max_snapshot_bytes": 19,
+          "snapshot_over_old": 0.08333333333333333,
+          "mean_stored_fields": 1.0,
+          "failure_field_counts": {
+            "path": 309,
+            "checksum": 439,
+            "flags": 101,
+            "goal_idx": 14,
+            "start_idx": 15
+          },
+          "independent_decoder_mismatches": 0
+        },
+        "full": {
+          "records": 5000,
+          "undo_success_rate": 1.0,
+          "inconsistency_rate": 0.0,
+          "mean_snapshot_bytes": 237.0,
+          "max_snapshot_bytes": 237,
+          "snapshot_over_old": 1.0394736842105263,
+          "mean_stored_fields": 57.0,
+          "failure_field_counts": {},
+          "independent_decoder_mismatches": 0
+        }
+      }
+    },
+    "medium": {
+      "records": 50000,
+      "chosen": {
+        "records": 50000,
+        "undo_success_rate": 1.0,
+        "inconsistency_rate": 0.0,
+        "mean_snapshot_bytes": 24.41734,
+        "max_snapshot_bytes": 29,
+        "snapshot_over_old": 0.10709359649122807,
+        "mean_stored_fields": 2.09182,
+        "failure_field_counts": {},
+        "independent_decoder_mismatches": 0,
+        "sample_failures": []
+      },
+      "schemes": {
+        "stateless": {
+          "records": 50000,
+          "undo_success_rate": 0.0,
+          "inconsistency_rate": 1.0,
+          "mean_snapshot_bytes": 10.0,
+          "max_snapshot_bytes": 10,
+          "snapshot_over_old": 0.043859649122807015,
+          "mean_stored_fields": 0.0,
+          "failure_field_counts": {
+            "created_at": 50000,
+            "checksum": 50000,
+            "flags": 1044,
+            "path": 3217,
+            "start_idx": 147,
+            "goal_idx": 183
+          },
+          "independent_decoder_mismatches": 0
+        },
+        "predicted": {
+          "records": 50000,
+          "undo_success_rate": 0.90818,
+          "inconsistency_rate": 0.09182000000000001,
+          "mean_snapshot_bytes": 19.0,
+          "max_snapshot_bytes": 19,
+          "snapshot_over_old": 0.08333333333333333,
+          "mean_stored_fields": 1.0,
+          "failure_field_counts": {
+            "flags": 1044,
+            "checksum": 4591,
+            "path": 3217,
+            "start_idx": 147,
+            "goal_idx": 183
+          },
+          "independent_decoder_mismatches": 0
+        },
+        "full": {
+          "records": 50000,
+          "undo_success_rate": 1.0,
+          "inconsistency_rate": 0.0,
+          "mean_snapshot_bytes": 237.0,
+          "max_snapshot_bytes": 237,
+          "snapshot_over_old": 1.0394736842105263,
+          "mean_stored_fields": 57.0,
+          "failure_field_counts": {},
+          "independent_decoder_mismatches": 0
+        }
+      }
+    },
+    "large": {
+      "records": 500000,
+      "chosen": {
+        "records": 500000,
+        "undo_success_rate": 1.0,
+        "inconsistency_rate": 0.0,
+        "mean_snapshot_bytes": 24.410238,
+        "max_snapshot_bytes": 29,
+        "snapshot_over_old": 0.10706244736842105,
+        "mean_stored_fields": 2.090114,
+        "failure_field_counts": {},
+        "independent_decoder_mismatches": 0,
+        "sample_failures": []
+      },
+      "schemes": {
+        "stateless": {
+          "records": 500000,
+          "undo_success_rate": 0.0,
+          "inconsistency_rate": 1.0,
+          "mean_snapshot_bytes": 10.0,
+          "max_snapshot_bytes": 10,
+          "snapshot_over_old": 0.043859649122807015,
+          "mean_stored_fields": 0.0,
+          "failure_field_counts": {
+            "created_at": 500000,
+            "checksum": 500000,
+            "flags": 10083,
+            "path": 31659,
+            "goal_idx": 1653,
+            "start_idx": 1662
+          },
+          "independent_decoder_mismatches": 0
+        },
+        "predicted": {
+          "records": 500000,
+          "undo_success_rate": 0.909886,
+          "inconsistency_rate": 0.09011400000000003,
+          "mean_snapshot_bytes": 19.0,
+          "max_snapshot_bytes": 19,
+          "snapshot_over_old": 0.08333333333333333,
+          "mean_stored_fields": 1.0,
+          "failure_field_counts": {
+            "flags": 10083,
+            "checksum": 45057,
+            "path": 31659,
+            "goal_idx": 1653,
+            "start_idx": 1662
+          },
+          "independent_decoder_mismatches": 0
+        },
+        "full": {
+          "records": 500000,
+          "undo_success_rate": 1.0,
+          "inconsistency_rate": 0.0,
+          "mean_snapshot_bytes": 237.0,
+          "max_snapshot_bytes": 237,
+          "snapshot_over_old": 1.0394736842105263,
+          "mean_stored_fields": 57.0,
+          "failure_field_counts": {},
+          "independent_decoder_mismatches": 0
+        }
+      }
+    }
+  },
+  "digest_sha256": "93f9336f3eeb4ac16d4bde7002a550f6c41efacaab43da178afd2af6561fc427"
+}
