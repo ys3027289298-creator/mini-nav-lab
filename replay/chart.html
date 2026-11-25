@@ -1,0 +1,342 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>确定性回放实验 — 两条决策曲线</title>
+<style>
+  .viz-root {
+    color-scheme: light;
+    --surface-1:      #fcfcfb;
+    --page:           #f9f9f7;
+    --text-primary:   #0b0b0b;
+    --text-secondary: #52514e;
+    --text-muted:     #898781;
+    --grid:           #e1e0d9;
+    --axis:           #c3c2b7;
+    --border:         rgba(11,11,11,0.10);
+    --good:           #0ca30c;
+    --s1: #2a78d6;  /* fixed      */
+    --s2: #eb6834;  /* hash       */
+    --s3: #1baf7a;  /* float      */
+    --s4: #eda100;  /* thread     */
+    --s5: #e87ba4;  /* float_tie  */
+  }
+  @media (prefers-color-scheme: dark) {
+    :root:where(:not([data-theme="light"])) .viz-root {
+      color-scheme: dark;
+      --surface-1:      #1a1a19;
+      --page:           #0d0d0d;
+      --text-primary:   #f0efec;
+      --text-secondary: #c3c2b7;
+      --text-muted:     #898781;
+      --grid:           #2c2c2a;
+      --axis:           #383835;
+      --border:         rgba(255,255,255,0.10);
+      --good:           #0ca30c;
+      --s1: #3987e5;
+      --s2: #d95926;
+      --s3: #199e70;
+      --s4: #c98500;
+      --s5: #d55181;
+    }
+  }
+  :root[data-theme="dark"] .viz-root {
+    color-scheme: dark;
+    --surface-1:      #1a1a19; --page: #0d0d0d;
+    --text-primary:   #f0efec; --text-secondary: #c3c2b7; --text-muted: #898781;
+    --grid: #2c2c2a; --axis: #383835; --border: rgba(255,255,255,0.10);
+    --good: #0ca30c;
+    --s1: #3987e5; --s2: #d95926; --s3: #199e70; --s4: #c98500; --s5: #d55181;
+  }
+  * { box-sizing: border-box; }
+  body { margin: 0; background: var(--page); color: var(--text-primary);
+         font: 14px/1.5 system-ui, -apple-system, "Segoe UI", sans-serif; }
+  .viz-root { max-width: 1040px; margin: 0 auto; padding: 28px 24px 40px; }
+  h1 { font-size: 20px; margin: 0 0 4px; }
+  .sub { color: var(--text-secondary); margin: 0 0 18px; font-size: 13px; }
+  .tiles { display: flex; gap: 12px; flex-wrap: wrap; margin-bottom: 20px; }
+  .tile { background: var(--surface-1); border: 1px solid var(--border);
+          border-radius: 10px; padding: 12px 16px; min-width: 150px; flex: 1; }
+  .tile .v { font-size: 24px; font-weight: 650; }
+  .tile .l { color: var(--text-muted); font-size: 12px; }
+  .tile .v.good { color: var(--good); }
+  .panel { background: var(--surface-1); border: 1px solid var(--border);
+           border-radius: 12px; padding: 18px 18px 8px; margin-bottom: 18px; }
+  .panel h2 { font-size: 15px; margin: 0 0 2px; }
+  .panel .desc { color: var(--text-muted); font-size: 12px; margin: 0 0 10px; }
+  .legend { display: flex; gap: 14px; flex-wrap: wrap; margin: 6px 0 4px; font-size: 12.5px; }
+  .legend span { display: inline-flex; align-items: center; gap: 6px; color: var(--text-secondary); }
+  .legend i { width: 16px; height: 3px; border-radius: 2px; display: inline-block; }
+  svg { width: 100%; height: auto; display: block; }
+  .grid { stroke: var(--grid); stroke-width: 1; }
+  .axisline { stroke: var(--axis); stroke-width: 1; }
+  .tick { fill: var(--text-muted); font-size: 11px; }
+  .xlab { fill: var(--text-secondary); font-size: 12px; }
+  .endlab { font-size: 11.5px; font-weight: 600; }
+  .line { fill: none; stroke-width: 2; }
+  .mk { stroke: var(--surface-1); stroke-width: 1.5; }
+  .hit { fill: transparent; cursor: crosshair; }
+  .cross { stroke: var(--text-muted); stroke-width: 1; stroke-dasharray: 3 3; }
+  .tip { position: fixed; pointer-events: none; background: var(--surface-1);
+         border: 1px solid var(--border); border-radius: 8px; padding: 8px 10px;
+         font-size: 12px; box-shadow: 0 4px 14px rgba(0,0,0,.18); display: none;
+         z-index: 10; min-width: 150px; }
+  .tip b { display: block; margin-bottom: 4px; }
+  .tip .row { display: flex; justify-content: space-between; gap: 12px; color: var(--text-secondary); }
+  .tip .dot { display: inline-block; width: 8px; height: 8px; border-radius: 50%; margin-right: 6px; }
+  table { width: 100%; border-collapse: collapse; font-size: 12.5px; }
+  th, td { text-align: right; padding: 7px 10px; border-bottom: 1px solid var(--grid);
+           font-variant-numeric: tabular-nums; }
+  th:first-child, td:first-child { text-align: left; }
+  th { color: var(--text-muted); font-weight: 600; }
+  caption { text-align: left; color: var(--text-secondary); font-size: 12px;
+            padding: 10px 0 6px; }
+  .zero { stroke: var(--text-secondary); stroke-width: 1.4; }
+  .theme-btn { float: right; font: inherit; font-size: 12px; color: var(--text-secondary);
+               background: var(--surface-1); border: 1px solid var(--border);
+               border-radius: 8px; padding: 5px 10px; cursor: pointer; }
+</style>
+</head>
+<body>
+<div class="viz-root" id="root">
+  <button class="theme-btn" id="themeBtn" type="button">切换主题</button>
+  <h1>确定性回放实验：两条决策曲线</h1>
+  <p class="sub">每规模 4 个随机场景 × 40 次回放 = 156 次两两逐点比对。通过判据：两次回放差异帧数必须为 0。</p>
+
+  <div class="tiles">
+    <div class="tile"><div class="v good">PASS</div><div class="l">fixed 引擎三规模差异帧均为 0</div></div>
+    <div class="tile"><div class="v">100%</div><div class="l">fixed / float 严格-relax 达成率</div></div>
+    <div class="tile"><div class="v">0%</div><div class="l">thread 无 join 达成率（156/156 全分歧）</div></div>
+    <div class="tile"><div class="v">+53% → −19%</div><div class="l">堆排序相对线性扫描的开销（小→大）</div></div>
+  </div>
+
+  <div class="panel">
+    <h2>曲线一：确定性达成率（回放逐点相同的比对占比）</h2>
+    <p class="desc">同输入、仅环境种子（hash salt / 调度抖动）不同。100% 才具备服务端复现校验的资格。</p>
+    <div class="legend" id="legendA"></div>
+    <svg id="chartA" viewBox="0 0 960 340" role="img" aria-label="determinism rate chart"></svg>
+  </div>
+
+  <div class="panel">
+    <h2>曲线二：强制排序开销（同规范下二叉堆相对线性扫描的耗时差）</h2>
+    <p class="desc">两种实现输出逐点交叉校验为 0 处不符；开销随规模由正转负，大地图上堆反而更快。</p>
+    <svg id="chartB" viewBox="0 0 960 280" role="img" aria-label="ordering overhead chart"></svg>
+  </div>
+
+  <div class="panel">
+    <table id="dataTable">
+      <caption>明细表（relief：低对比色系列以数值表直接给出）</caption>
+      <thead><tr><th>模式 / 指标</th><th>small 32×24</th><th>medium 64×48</th><th>large 128×96</th></tr></thead>
+      <tbody></tbody>
+    </table>
+  </div>
+</div>
+<div class="tip" id="tip"></div>
+
+<script>
+const DATA = {
+  sizes: ["small_32x24", "medium_64x48", "large_128x96"],
+  sizeLabels: ["small\n32×24", "medium\n64×48", "large\n128×96"],
+  modes: [
+    { key: "fixed",     name: "fixed（全序+固定邻域）", color: "var(--s1)" },
+    { key: "hash",      name: "hash（salt 遍历序）",     color: "var(--s2)" },
+    { key: "float",     name: "float（严格浮点 relax）", color: "var(--s3)" },
+    { key: "thread",    name: "thread（无 join 合并）",  color: "var(--s4)" },
+    { key: "float_tie", name: "float_tie（浮点+盐序）",  color: "var(--s5)" },
+  ],
+  determinism: {
+    fixed:     [100.0000, 100.0000, 100.0000],
+    hash:      [37.1795,   5.1282,   0.0000],
+    float:     [100.0000, 100.0000, 100.0000],
+    thread:    [0.0000,    0.0000,   0.0000],
+    float_tie: [56.4103,   4.4872,   0.0000],
+  },
+  diffFrames: {
+    fixed: [0, 0, 0], hash: [175, 1165, 2591], float: [0, 0, 0],
+    thread: [4718, 10112, 20868], float_tie: [97, 758, 2488],
+  },
+  avgUs: {
+    fixed: [25.39, 194.86, 1017.37], hash: [64.35, 283.48, 1199.82],
+    float: [80.25, 368.69, 1612.96], thread: [48.89, 203.28, 755.93],
+    float_tie: [82.88, 386.19, 1566.36],
+  },
+  overheadPct: [53.3792, 19.2159, -18.7670],
+  heapUs: [52.67, 248.66, 1015.75],
+  scanUs: [34.34, 208.58, 1250.42],
+};
+
+const NS = "http://www.w3.org/2000/svg";
+const tip = document.getElementById("tip");
+
+function el(tag, attrs, parent) {
+  const e = document.createElementNS(NS, tag);
+  for (const [k, v] of Object.entries(attrs || {})) e.setAttribute(k, v);
+  if (parent) parent.appendChild(e);
+  return e;
+}
+function geom(svgId, pad, nCats) {
+  const W = 960, H = svgId === "chartA" ? 340 : 280;
+  const iw = W - pad.l - pad.r, ih = H - pad.t - pad.b;
+  const x = i => pad.l + (iw * i) / (nCats - 1);
+  return { W, H, pad, iw, ih, x };
+}
+function drawGrid(svg, g, yTicks, yScale, fmt) {
+  yTicks.forEach(t => {
+    const y = g.pad.t + g.ih - yScale(t) * g.ih;
+    el("line", { x1: g.pad.l, x2: g.pad.l + g.iw, y1: y, y2: y, class: "grid" }, svg);
+    const tx = el("text", { x: g.pad.l - 8, y: y + 4, "text-anchor": "end", class: "tick" }, svg);
+    tx.textContent = fmt(t);
+  });
+  el("line", { x1: g.pad.l, x2: g.pad.l, y1: g.pad.t, y2: g.pad.t + g.ih, class: "axisline" }, svg);
+  el("line", { x1: g.pad.l, x2: g.pad.l + g.iw, y1: g.pad.t + g.ih, y2: g.pad.t + g.ih, class: "axisline" }, svg);
+}
+
+/* ---------- chart A: determinism, 5 series ---------- */
+(function drawA() {
+  const svg = document.getElementById("chartA");
+  const g = geom("chartA", { l: 56, r: 150, t: 16, b: 44 }, 3);
+  const yScale = v => v / 100;
+  const y = v => g.pad.t + g.ih - yScale(v) * g.ih;
+  drawGrid(svg, g, [0, 25, 50, 75, 100], yScale, t => t + "%");
+  DATA.sizeLabels.forEach((lab, i) => {
+    const [a, b] = lab.split("\n");
+    const t1 = el("text", { x: g.x(i), y: g.pad.t + g.ih + 20, "text-anchor": "middle", class: "xlab" }, svg);
+    t1.textContent = a;
+    const t2 = el("text", { x: g.x(i), y: g.pad.t + g.ih + 36, "text-anchor": "middle", class: "tick" }, svg);
+    t2.textContent = b;
+  });
+
+  const legend = document.getElementById("legendA");
+  DATA.modes.forEach(m => {
+    const s = document.createElement("span");
+    s.innerHTML = `<i style="background:${m.color}"></i>${m.name}`;
+    legend.appendChild(s);
+  });
+
+  // end-label collision nudging: fixed & float both end at 100
+  const endYs = DATA.modes.map(m => y(DATA.determinism[m.key][2]));
+  const slots = [];
+  DATA.modes.forEach((m, mi) => {
+    let yy = endYs[mi];
+    while (slots.some(s => Math.abs(s - yy) < 15)) yy += 15;
+    slots.push(yy);
+    const vals = DATA.determinism[m.key];
+    const pts = vals.map((v, i) => [g.x(i), y(v)]);
+    el("polyline", { points: pts.map(p => p.join(",")).join(" "), class: "line", stroke: m.color }, svg);
+    pts.forEach(([px, py]) => el("circle", { cx: px, cy: py, r: 4.5, class: "mk", fill: m.color }, svg));
+    const lab = el("text", { x: g.pad.l + g.iw + 10, y: yy + 4, class: "endlab", fill: m.color }, svg);
+    lab.textContent = `${m.key} ${vals[2].toFixed(1)}%`;
+  });
+
+  // hover layer
+  const cross = el("line", { y1: g.pad.t, y2: g.pad.t + g.ih, class: "cross", visibility: "hidden" }, svg);
+  const hoverMk = DATA.modes.map(m => el("circle", { r: 5.5, fill: m.color, stroke: "var(--surface-1)", "stroke-width": 2, visibility: "hidden" }, svg));
+  el("rect", { x: g.pad.l, y: g.pad.t, width: g.iw, height: g.ih, class: "hit" }, svg)
+    .addEventListener("mousemove", ev => {
+      const rect = svg.getBoundingClientRect();
+      const mx = (ev.clientX - rect.left) * (g.W / rect.width);
+      let i = Math.round((mx - g.pad.l) / (g.iw / 2));
+      i = Math.max(0, Math.min(2, i));
+      cross.setAttribute("x1", g.x(i)); cross.setAttribute("x2", g.x(i));
+      cross.setAttribute("visibility", "visible");
+      let html = `<b>${DATA.sizeLabels[i].replace("\n", " ")}</b>`;
+      DATA.modes.forEach((m, mi) => {
+        const v = DATA.determinism[m.key][i];
+        hoverMk[mi].setAttribute("cx", g.x(i));
+        hoverMk[mi].setAttribute("cy", y(v));
+        hoverMk[mi].setAttribute("visibility", "visible");
+        html += `<div class="row"><span><span class="dot" style="background:${m.color}"></span>${m.key}</span><b>${v.toFixed(2)}% · ${DATA.diffFrames[m.key][i]} 差异帧</b></div>`;
+      });
+      tip.innerHTML = html; tip.style.display = "block";
+      tip.style.left = Math.min(ev.clientX + 14, window.innerWidth - 230) + "px";
+      tip.style.top = (ev.clientY + 12) + "px";
+    });
+  svg.addEventListener("mouseleave", () => {
+    tip.style.display = "none";
+    cross.setAttribute("visibility", "hidden");
+    hoverMk.forEach(c => c.setAttribute("visibility", "hidden"));
+  });
+})();
+
+/* ---------- chart B: ordering overhead, single series ---------- */
+(function drawB() {
+  const svg = document.getElementById("chartB");
+  const g = geom("chartB", { l: 56, r: 110, t: 16, b: 44 }, 3);
+  const lo = -30, hi = 60;
+  const yScale = v => (v - lo) / (hi - lo);
+  const y = v => g.pad.t + g.ih - yScale(v) * g.ih;
+  drawGrid(svg, g, [-30, 0, 30, 60], yScale, t => (t > 0 ? "+" : "") + t + "%");
+  el("line", { x1: g.pad.l, x2: g.pad.l + g.iw, y1: y(0), y2: y(0), class: "zero" }, svg);
+  DATA.sizeLabels.forEach((lab, i) => {
+    const [a, b] = lab.split("\n");
+    const t1 = el("text", { x: g.x(i), y: g.pad.t + g.ih + 20, "text-anchor": "middle", class: "xlab" }, svg);
+    t1.textContent = a;
+    const t2 = el("text", { x: g.x(i), y: g.pad.t + g.ih + 36, "text-anchor": "middle", class: "tick" }, svg);
+    t2.textContent = b;
+  });
+  const vals = DATA.overheadPct;
+  const pts = vals.map((v, i) => [g.x(i), y(v)]);
+  el("polyline", { points: pts.map(p => p.join(",")).join(" "), class: "line", stroke: "var(--s1)" }, svg);
+  pts.forEach(([px, py], i) => {
+    el("circle", { cx: px, cy: py, r: 5, class: "mk", fill: "var(--s1)" }, svg);
+    const lab = el("text", { x: px, y: py + (vals[i] >= 0 ? -12 : 20), "text-anchor": "middle", class: "endlab", fill: "var(--s1)" }, svg);
+    lab.textContent = (vals[i] >= 0 ? "+" : "") + vals[i].toFixed(1) + "%";
+  });
+  const cross = el("line", { y1: g.pad.t, y2: g.pad.t + g.ih, class: "cross", visibility: "hidden" }, svg);
+  const hmk = el("circle", { r: 6, fill: "var(--s1)", stroke: "var(--surface-1)", "stroke-width": 2, visibility: "hidden" }, svg);
+  el("rect", { x: g.pad.l, y: g.pad.t, width: g.iw, height: g.ih, class: "hit" }, svg)
+    .addEventListener("mousemove", ev => {
+      const rect = svg.getBoundingClientRect();
+      const mx = (ev.clientX - rect.left) * (g.W / rect.width);
+      let i = Math.round((mx - g.pad.l) / (g.iw / 2));
+      i = Math.max(0, Math.min(2, i));
+      cross.setAttribute("x1", g.x(i)); cross.setAttribute("x2", g.x(i));
+      cross.setAttribute("visibility", "visible");
+      hmk.setAttribute("cx", g.x(i)); hmk.setAttribute("cy", y(vals[i]));
+      hmk.setAttribute("visibility", "visible");
+      tip.innerHTML = `<b>${DATA.sizeLabels[i].replace("\n", " ")}</b>`
+        + `<div class="row"><span>堆 / 扫描开销差</span><b>${(vals[i] >= 0 ? "+" : "") + vals[i].toFixed(2)}%</b></div>`
+        + `<div class="row"><span>heap</span><b>${DATA.heapUs[i].toFixed(1)} µs</b></div>`
+        + `<div class="row"><span>linear scan</span><b>${DATA.scanUs[i].toFixed(1)} µs</b></div>`
+        + `<div class="row"><span>输出不符</span><b>0</b></div>`;
+      tip.style.display = "block";
+      tip.style.left = Math.min(ev.clientX + 14, window.innerWidth - 230) + "px";
+      tip.style.top = (ev.clientY + 12) + "px";
+    });
+  svg.addEventListener("mouseleave", () => {
+    tip.style.display = "none";
+    cross.setAttribute("visibility", "hidden");
+    hmk.setAttribute("visibility", "hidden");
+  });
+})();
+
+/* ---------- table ---------- */
+(function table() {
+  const tb = document.querySelector("#dataTable tbody");
+  const rows = [];
+  DATA.modes.forEach(m => {
+    rows.push([m.name + " · 达成率", ...DATA.determinism[m.key].map(v => v.toFixed(2) + "%")]);
+    rows.push(["　差异帧数", ...DATA.diffFrames[m.key].map(String)]);
+    rows.push(["　平均耗时 µs", ...DATA.avgUs[m.key].map(v => v.toFixed(1))]);
+  });
+  rows.push(["排序开销（堆 vs 扫描）", ...DATA.overheadPct.map(v => (v >= 0 ? "+" : "") + v.toFixed(2) + "%")]);
+  rows.forEach(r => {
+    const tr = document.createElement("tr");
+    r.forEach((c, i) => {
+      const td = document.createElement(i === 0 ? "th" : "td");
+      if (i === 0) td.scope = "row";
+      td.textContent = c;
+      tr.appendChild(td);
+    });
+    tb.appendChild(tr);
+  });
+})();
+
+document.getElementById("themeBtn").addEventListener("click", () => {
+  const root = document.documentElement;
+  root.dataset.theme = root.dataset.theme === "dark" ? "light" : "dark";
+});
+</script>
+</body>
+</html>
