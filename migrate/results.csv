@@ -1,0 +1,4 @@
+tier,name,cells,segments,turns,L_center,L_corner,L_mixed,rel_corner_pct,rel_mixed_pct,nmax_budget,nmax_tight,gate_corner,gate_mixed,worst_seg,worst_err
+T1,short,16,15,2,15.000000,15.000000,15.288246,0.000000,1.921637,0,0,PASS,FAIL,0,0.581139
+T2,medium,41,40,6,40.000000,40.000000,40.288246,0.000000,0.720614,0,0,PASS,PASS,0,0.581139
+T3,long,29,28,13,28.000000,28.000000,28.288246,0.000000,1.029449,0,0,PASS,FAIL,0,0.581139
