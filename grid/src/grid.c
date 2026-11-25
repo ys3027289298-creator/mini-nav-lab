@@ -3,10 +3,12 @@
 #include <stdio.h>
 #include <string.h>
 #include <math.h>
+#include <stdlib.h>
 
 #define W 16
 #define H 12
 #define MAXN (W*H)
+#define ASTAR_EXPANSION_LIMIT 96
 
 typedef struct { unsigned char blocked[W*H]; } Map;
 
@@ -17,8 +19,15 @@ static int walkable(const Map* m, int x, int y) {
     return !m->blocked[idx(x, y)];
 }
 
-/* returns path length or -1 */
-static int astar(const Map* m, int sx, int sy, int gx, int gy, int* out, int cap) {
+/*
+ * Returns path vertex count, -1 when unreachable/invalid, -2 when the
+ * reconstructed path is longer than cap, and -3 when expansion_limit is
+ * exceeded. expansions may be NULL.
+ */
+static int astar_ex(const Map* m, int sx, int sy, int gx, int gy,
+                    int* out, int cap, int expansion_limit, int* expansions) {
+    int expanded = 0;
+    if (expansions) *expansions = 0;
     if (!walkable(m, sx, sy) || !walkable(m, gx, gy)) return -1;
     int g[MAXN], f[MAXN], closed[MAXN], parent[MAXN];
     for (int i = 0; i < MAXN; i++) { g[i] = 1 << 29; f[i] = 1 << 29; closed[i] = 0; parent[i] = -1; }
@@ -31,6 +40,9 @@ static int astar(const Map* m, int sx, int sy, int gx, int gy, int* out, int cap
         for (int i = 1; i < nopen; i++) if (f[open[i]] < f[open[best]]) best = i;
         int cur = open[best];
         open[best] = open[--nopen];
+        ++expanded;
+        if (expansions) *expansions = expanded;
+        if (expanded > expansion_limit) return -3;
         if (cur == idx(gx, gy)) {
             int n = 0, c = cur;
             int rev[MAXN];
@@ -59,6 +71,12 @@ static int astar(const Map* m, int sx, int sy, int gx, int gy, int* out, int cap
         }
     }
     return -1;
+}
+
+static int astar(const Map* m, int sx, int sy, int gx, int gy,
+                 int* out, int cap) {
+    return astar_ex(m, sx, sy, gx, gy, out, cap,
+                    ASTAR_EXPANSION_LIMIT, NULL);
 }
 
 static int failures = 0;

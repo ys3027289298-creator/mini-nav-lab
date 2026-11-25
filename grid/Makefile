@@ -9,5 +9,10 @@ grid: src/grid.c
 test: grid
 	./grid
 
+fuzz:
+	python3 fuzz/run_experiment.py
+
 clean:
 	rm -f grid
+
+.PHONY: all test fuzz clean
