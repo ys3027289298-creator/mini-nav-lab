@@ -7,8 +7,18 @@
 #define W 16
 #define H 12
 
-typedef struct { unsigned char blocked[W*H]; } Map;
+typedef struct {
+    unsigned char blocked[W*H];
+    unsigned char terrain[W*H]; /* 新增：有限权重档（普通/草/泥），不参与 LOS */
+} Map;
 static int idx(int x, int y) { return y * W + x; }
+
+/* 加权后视线判据仍然成立：只有代价 ∞ 的 blocked 端点遮挡视线；
+   草=2、泥=4 都只是有限移动代价，不构成遮挡。
+   因此 LOS / 贪心平滑的几何结论与 bool 时代完全相同。 */
+static int sight_blocked(const Map* m, int x, int y) {
+    return m->blocked[idx(x, y)];
+}
 
 /* bresenham supercover: any blocked cell on the segment blocks LOS */
 static int los(const Map* m, int x0, int y0, int x1, int y1) {
@@ -18,7 +28,7 @@ static int los(const Map* m, int x0, int y0, int x1, int y1) {
     int x = x0, y = y0;
     for (;;) {
         if (x < 0 || y < 0 || x >= W || y >= H) return 0;
-        if (m->blocked[idx(x, y)]) return 0;
+        if (sight_blocked(m, x, y)) return 0;
         if (x == x1 && y == y1) return 1;
         int e2 = 2 * err;
         if (e2 > -dy) { err -= dy; x += sx; }
@@ -91,6 +101,15 @@ int main(void) {
     check("empty_rejected", smooth(&c, path, 0, out, 20) == -1);
     k = smooth(&c, path, n, out, 1);
     check("cap_rejected", k == -2);
+
+    /* finite terrain weights must not change LOS or smoothing geometry */
+    Map tw; memset(&tw, 0, sizeof(tw));
+    tw.terrain[idx(2, 0)] = 1; /* grass */
+    check("los_ignores_grass", los(&tw, 0, 0, 4, 0) == 1);
+    tw.terrain[idx(2, 0)] = 2; /* mud, heavier but still finite */
+    check("los_ignores_mud", los(&tw, 0, 0, 4, 0) == 1);
+    k = smooth(&tw, path, n, out, 20);
+    check("smooth_weights_collapse_two", k == 2);
 
     printf("all_ok=%d\n", failures == 0);
     return failures == 0 ? 0 : 1;
