@@ -1,0 +1,40 @@
+d_max_s,policy,tick,clock,client,path_label_version,path_gen_version,server_map_version,bad_on_eval_map,bad_on_own_map,reason
+15,buggy,300,10:05:00,348,1,1,2,1,0,switch-induced
+15,buggy,300,10:05:00,2301,1,1,2,5,0,switch-induced
+15,buggy,300,10:05:00,2909,1,1,2,2,0,switch-induced
+15,buggy,300,10:05:00,455,1,1,2,2,0,switch-induced
+15,buggy,300,10:05:00,1264,1,1,2,5,0,switch-induced
+15,buggy,300,10:05:00,1229,1,1,2,2,0,switch-induced
+15,fixed,,,,,,,,,ZERO switch-induced misjudgement
+15,latebump,300,10:05:00,893,1,1,2,1,0,switch-induced
+15,latebump,300,10:05:00,244,1,1,2,5,0,switch-induced
+15,latebump,300,10:05:00,3001,1,1,2,2,0,switch-induced
+15,latebump,300,10:05:00,3435,1,1,2,5,0,switch-induced
+15,latebump,300,10:05:00,3219,1,1,2,5,0,switch-induced
+15,latebump,300,10:05:00,1704,1,1,2,5,0,switch-induced
+60,buggy,300,10:05:00,2702,1,1,2,2,0,switch-induced
+60,buggy,300,10:05:00,530,1,1,2,5,0,switch-induced
+60,buggy,300,10:05:00,3656,1,1,2,5,0,switch-induced
+60,buggy,300,10:05:00,2487,1,1,2,5,0,switch-induced
+60,buggy,300,10:05:00,2156,1,1,2,5,0,switch-induced
+60,buggy,300,10:05:00,666,1,1,2,5,0,switch-induced
+60,fixed,,,,,,,,,ZERO switch-induced misjudgement
+60,latebump,300,10:05:00,2060,1,1,2,5,0,switch-induced
+60,latebump,300,10:05:00,1755,1,1,2,2,0,switch-induced
+60,latebump,300,10:05:00,1032,1,1,2,5,0,switch-induced
+60,latebump,300,10:05:00,1970,1,1,2,5,0,switch-induced
+60,latebump,300,10:05:00,2697,1,1,2,1,0,switch-induced
+60,latebump,300,10:05:00,559,1,1,2,2,0,switch-induced
+180,buggy,300,10:05:00,3589,1,1,2,2,0,switch-induced
+180,buggy,300,10:05:00,3204,1,1,2,1,0,switch-induced
+180,buggy,300,10:05:00,1273,1,1,2,5,0,switch-induced
+180,buggy,300,10:05:00,3093,1,1,2,2,0,switch-induced
+180,buggy,300,10:05:00,226,1,1,2,5,0,switch-induced
+180,buggy,300,10:05:00,2101,1,1,2,1,0,switch-induced
+180,fixed,,,,,,,,,ZERO switch-induced misjudgement
+180,latebump,300,10:05:00,1801,1,1,2,5,0,switch-induced
+180,latebump,300,10:05:00,3042,1,1,2,5,0,switch-induced
+180,latebump,300,10:05:00,3886,1,1,2,5,0,switch-induced
+180,latebump,300,10:05:00,380,1,1,2,2,0,switch-induced
+180,latebump,300,10:05:00,1371,1,1,2,2,0,switch-induced
+180,latebump,300,10:05:00,246,1,1,2,1,0,switch-induced
