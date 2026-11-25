@@ -1,0 +1,7 @@
+k,P0_hit,P0_SLA_met,wait_5s_violated,expected_P1_starved_per_run,expected_P2_starved_per_run,total_sacrificed_low
+1,0.9329,False,True,0.0,36.4,36.4
+2,0.9893,False,True,0.0,70.6,70.6
+3,0.9852,False,True,0.0,70.6,70.6
+4,0.989,False,True,0.0,70.6,70.6
+5,0.9944,True,True,0.0,70.6,70.6
+6,0.9953,True,True,0.0,70.6,70.6

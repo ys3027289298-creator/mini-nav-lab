@@ -1,0 +1,61 @@
+{
+  "F_slots": 25,
+  "frame_ms": 20.0,
+  "starvation_frames": 250,
+  "P0_mean_expansions": 8.754,
+  "P0_p95_expansions": 15.0,
+  "P0_p99_expansions": 20.0,
+  "SLA_hit_target": 0.99,
+  "derivation": "k* = floor(F - W_0.99); P0 of 99th-pct size fits with k reserved low-priority workers iff W_0.99 + k <= F",
+  "k_star_reserve_p99": 5,
+  "k_star_reserve_p95": 10,
+  "by_k": [
+    {
+      "k": 1,
+      "fair_share_per_job": 25,
+      "residual_for_P0_worst_frame": 24,
+      "p99_P0_fits_without_preemption": true,
+      "p95_P0_fits_without_preemption": true
+    },
+    {
+      "k": 2,
+      "fair_share_per_job": 12,
+      "residual_for_P0_worst_frame": 23,
+      "p99_P0_fits_without_preemption": true,
+      "p95_P0_fits_without_preemption": true
+    },
+    {
+      "k": 3,
+      "fair_share_per_job": 8,
+      "residual_for_P0_worst_frame": 22,
+      "p99_P0_fits_without_preemption": true,
+      "p95_P0_fits_without_preemption": true
+    },
+    {
+      "k": 4,
+      "fair_share_per_job": 6,
+      "residual_for_P0_worst_frame": 21,
+      "p99_P0_fits_without_preemption": true,
+      "p95_P0_fits_without_preemption": true
+    },
+    {
+      "k": 5,
+      "fair_share_per_job": 5,
+      "residual_for_P0_worst_frame": 20,
+      "p99_P0_fits_without_preemption": true,
+      "p95_P0_fits_without_preemption": true
+    },
+    {
+      "k": 6,
+      "fair_share_per_job": 4,
+      "residual_for_P0_worst_frame": 19,
+      "p99_P0_fits_without_preemption": false,
+      "p95_P0_fits_without_preemption": true
+    }
+  ],
+  "simulated_k_star": {
+    "main_heavy": null,
+    "balanced": 6,
+    "bg_heavy": 6
+  }
+}
