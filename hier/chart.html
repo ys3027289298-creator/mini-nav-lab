@@ -1,0 +1,343 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>分层寻路：块尺寸取舍曲线</title>
+<style>
+  .viz-root {
+    color-scheme: light;
+    --surface-1: #fcfcfb;
+    --page: #f9f9f7;
+    --text-primary: #0b0b0b;
+    --text-secondary: #52514e;
+    --muted: #898781;
+    --grid: #e1e0d9;
+    --baseline: #c3c2b7;
+    --border: rgba(11,11,11,0.10);
+    --series-1: #2a78d6;   /* near  */
+    --series-2: #eb6834;   /* mid   */
+    --series-3: #1baf7a;   /* far   */
+    --good: #006300;
+    --critical: #d03b3b;
+    --wash: rgba(42,120,214,0.08);
+  }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) .viz-root {
+      color-scheme: dark;
+      --surface-1: #1a1a19;
+      --page: #0d0d0d;
+      --text-primary: #f0efec;
+      --text-secondary: #c3c2b7;
+      --muted: #898781;
+      --grid: #2c2c2a;
+      --baseline: #383835;
+      --border: rgba(255,255,255,0.10);
+      --series-1: #3987e5;
+      --series-2: #d95926;
+      --series-3: #199e70;
+      --good: #0ca30c;
+      --critical: #e66767;
+      --wash: rgba(57,135,229,0.10);
+    }
+  }
+  :root[data-theme="dark"] .viz-root {
+    color-scheme: dark;
+    --surface-1: #1a1a19; --page: #0d0d0d;
+    --text-primary: #f0efec; --text-secondary: #c3c2b7; --muted: #898781;
+    --grid: #2c2c2a; --baseline: #383835; --border: rgba(255,255,255,0.10);
+    --series-1: #3987e5; --series-2: #d95926; --series-3: #199e70;
+    --good: #0ca30c; --critical: #e66767;
+    --wash: rgba(57,135,229,0.10);
+  }
+  * { box-sizing: border-box; }
+  body.viz-root {
+    margin: 0; background: var(--page); color: var(--text-primary);
+    font: 14px/1.5 system-ui, -apple-system, "Segoe UI", sans-serif;
+  }
+  .wrap { max-width: 1080px; margin: 0 auto; padding: 32px 24px 64px; }
+  h1 { font-size: 22px; margin: 0 0 4px; }
+  .sub { color: var(--text-secondary); margin: 0 0 24px; }
+  .tiles { display: flex; gap: 12px; flex-wrap: wrap; margin-bottom: 24px; }
+  .tile {
+    background: var(--surface-1); border: 1px solid var(--border);
+    border-radius: 10px; padding: 14px 18px; min-width: 190px; flex: 1;
+  }
+  .tile .label { color: var(--text-secondary); font-size: 12px; }
+  .tile .value { font-size: 30px; font-weight: 600; margin-top: 2px; }
+  .tile .delta { font-size: 12px; color: var(--good); margin-top: 2px; }
+  .card {
+    background: var(--surface-1); border: 1px solid var(--border);
+    border-radius: 12px; padding: 20px 20px 12px; margin-bottom: 20px;
+  }
+  .card h2 { font-size: 15px; margin: 0 0 2px; font-weight: 600; }
+  .card .note { color: var(--text-secondary); font-size: 12px; margin: 0 0 10px; }
+  .legend { display: flex; gap: 18px; flex-wrap: wrap; margin: 6px 0 2px; font-size: 12px; color: var(--text-secondary); }
+  .legend .key { display: inline-flex; align-items: center; gap: 6px; }
+  .legend .swatch { width: 16px; height: 2px; border-radius: 1px; }
+  .legend .swatch.dashed { background: repeating-linear-gradient(90deg, var(--lc) 0 5px, transparent 5px 9px); }
+  .legend .swatch.plain { background: var(--lc); }
+  svg { display: block; width: 100%; height: auto; }
+  .axis-text { fill: var(--muted); font-size: 11px; }
+  .gridline { stroke: var(--grid); stroke-width: 1; }
+  .axisline { stroke: var(--baseline); stroke-width: 1; }
+  .threshold { stroke: var(--critical); stroke-width: 1; }
+  .threshold-label { fill: var(--critical); font-size: 11px; }
+  .model-line { stroke-width: 2; opacity: 0.35; fill: none; }
+  .data-line { stroke-width: 2; fill: none; stroke-linejoin: round; stroke-linecap: round; }
+  .marker { stroke: var(--surface-1); stroke-width: 2; }
+  .end-label { fill: var(--text-secondary); font-size: 11px; }
+  .crosshair { stroke: var(--muted); stroke-width: 1; }
+  .hit { fill: transparent; cursor: crosshair; }
+  #tooltip {
+    position: fixed; pointer-events: none; display: none; z-index: 10;
+    background: var(--surface-1); border: 1px solid var(--border);
+    border-radius: 8px; padding: 8px 10px; font-size: 12px;
+    box-shadow: 0 4px 14px rgba(0,0,0,0.18); min-width: 150px;
+  }
+  #tooltip .tt-title { color: var(--muted); margin-bottom: 4px; }
+  #tooltip .tt-row { display: flex; align-items: center; gap: 7px; margin: 2px 0; }
+  #tooltip .tt-key { width: 14px; height: 2px; border-radius: 1px; }
+  #tooltip .tt-val { margin-left: auto; font-weight: 600; font-variant-numeric: tabular-nums; }
+  details { margin-top: 4px; }
+  summary { cursor: pointer; color: var(--text-secondary); font-size: 13px; }
+  table { border-collapse: collapse; width: 100%; margin-top: 10px; font-size: 12px; }
+  th, td { padding: 6px 10px; text-align: right; border-bottom: 1px solid var(--grid); font-variant-numeric: tabular-nums; }
+  th:first-child, td:first-child { text-align: left; }
+  th { color: var(--text-secondary); font-weight: 600; }
+  .theme-btn {
+    float: right; border: 1px solid var(--border); background: var(--surface-1);
+    color: var(--text-secondary); border-radius: 8px; padding: 6px 12px;
+    font: inherit; font-size: 12px; cursor: pointer;
+  }
+</style>
+</head>
+<body class="viz-root">
+<div class="wrap">
+  <button class="theme-btn" id="themeBtn" type="button">切换深色</button>
+  <h1>分层寻路的块尺寸（c）取舍</h1>
+  <p class="sub">2048×2048 世界 · 两层 A*：块级粗路径 + 走廊内细化（外扩 2 块）· 三档起终点距离 × 6 种块尺寸 · 数据来自 <code>results/bench.csv</code></p>
+
+  <div class="tiles" id="tiles"></div>
+
+  <div class="card">
+    <h2>曲线一：展开节点数占全图节点的比例（成本曲线）</h2>
+    <p class="note">实线+圆点为实测；同色淡虚线为解析模型 n(c)=(W/c)²+kLc（每档 k 由实测拟合）。红线为 10% 验收上限。</p>
+    <div class="legend" id="legend1"></div>
+    <svg id="chart1" viewBox="0 0 980 380" role="img" aria-label="节点数比例随块尺寸变化"></svg>
+  </div>
+
+  <div class="card">
+    <h2>曲线二：路径长度相对全图 A* 的增幅（质量曲线）</h2>
+    <p class="note">0% 表示与全图最优路径等长；红线为 5% 验收上限。本次地图配置下全部 18 组查询零增幅。</p>
+    <div class="legend" id="legend2"></div>
+    <svg id="chart2" viewBox="0 0 980 380" role="img" aria-label="路径长度增幅随块尺寸变化"></svg>
+  </div>
+
+  <div class="card">
+    <details>
+      <summary>数据表（18 行实测，tooltip 之外的完整读数）</summary>
+      <table id="dataTable"></table>
+    </details>
+  </div>
+</div>
+<div id="tooltip"></div>
+<script src="results/chart_data.js"></script>
+<script>
+const D = window.CHART_DATA;
+const TIERS = ["near", "mid", "far"];
+const TIER_CN = { near: "近距 (L≈451)", mid: "中距 (L≈1403)", far: "远距 (L≈3601)" };
+const CS = [8, 16, 32, 64, 128, 256];
+const css = (name) => getComputedStyle(document.body).getPropertyValue(name).trim();
+const FALLBACK = { near: "#2a78d6", mid: "#eb6834", far: "#1baf7a" };
+const tierColor = (t) => css({ near: "--series-1", mid: "--series-2", far: "--series-3" }[t]) || FALLBACK[t];
+
+// ---- stat tiles ----
+const g = D.gates;
+document.getElementById("tiles").innerHTML = [
+  ["最坏节点数占比", (g.node_ratio_max * 100).toFixed(2) + "%", "上限 10% · 全部通过"],
+  ["最坏路径增幅", g.inflation_pct_max.toFixed(2) + "%", "上限 5% · 全部通过"],
+  ["回退全图次数", String(g.fallback_rows) + " / 18", "走廊外扩后无需兜底"],
+].map(([label, value, delta]) =>
+  `<div class="tile"><div class="label">${label}</div><div class="value">${value}</div><div class="delta">${delta}</div></div>`
+).join("");
+
+// ---- legends ----
+function buildLegend(elId, withModel) {
+  const el = document.getElementById(elId);
+  el.innerHTML = TIERS.map(t => {
+    const color = tierColor(t);
+    const model = withModel ? `<span class="key"><span class="swatch dashed" style="--lc:${color}"></span>模型 · ${TIER_CN[t]}</span>` : "";
+    return `<span class="key"><span class="swatch plain" style="--lc:${color}"></span>实测 · ${TIER_CN[t]}</span>${model}`;
+  }).join("");
+}
+buildLegend("legend1", true);
+buildLegend("legend2", false);
+
+// ---- generic line chart ----
+function lineChart(svgId, opts) {
+  const svg = document.getElementById(svgId);
+  const W = 980, H = 380, M = { l: 64, r: 130, t: 18, b: 46 };
+  const pw = W - M.l - M.r, ph = H - M.t - M.b;
+  const xPos = (c) => M.l + (Math.log2(c) - 3) / 5 * pw;   // log2: 8->0, 256->5
+  const yPos = (v) => M.t + ph - (v - opts.ymin) / (opts.ymax - opts.ymin) * ph;
+  const NS = "http://www.w3.org/2000/svg";
+  const add = (tag, attrs, parent = svg) => {
+    const node = document.createElementNS(NS, tag);
+    for (const [k, v] of Object.entries(attrs)) node.setAttribute(k, v);
+    parent.appendChild(node);
+    return node;
+  };
+  svg.innerHTML = "";
+
+  // grid + y ticks
+  const ticks = opts.yticks;
+  for (const tv of ticks) {
+    const y = yPos(tv);
+    add("line", { x1: M.l, x2: W - M.r, y1: y, y2: y, class: "gridline" });
+    const t = add("text", { x: M.l - 8, y: y + 4, "text-anchor": "end", class: "axis-text" });
+    t.textContent = opts.fmt(tv);
+  }
+  add("line", { x1: M.l, x2: W - M.r, y1: M.t + ph, y2: M.t + ph, class: "axisline" });
+  add("line", { x1: M.l, x2: M.l, y1: M.t, y2: M.t + ph, class: "axisline" });
+  for (const c of CS) {
+    const t = add("text", { x: xPos(c), y: M.t + ph + 22, "text-anchor": "middle", class: "axis-text" });
+    t.textContent = String(c);
+  }
+  const xl = add("text", { x: M.l + pw / 2, y: H - 6, "text-anchor": "middle", class: "axis-text" });
+  xl.textContent = "块边长 c（格，对数刻度）";
+
+  // threshold line
+  if (opts.threshold != null) {
+    const y = yPos(opts.threshold);
+    add("line", { x1: M.l, x2: W - M.r, y1: y, y2: y, class: "threshold" });
+    const lab = add("text", { x: W - M.r + 6, y: y + 4, class: "threshold-label" });
+    lab.textContent = opts.thresholdLabel;
+  }
+
+  const series = [];
+  for (const tier of TIERS) {
+    const color = tierColor(tier);
+    // model curve (chart 1 only)
+    if (opts.model) {
+      const m = D.tiers[tier].curve.filter(p => CS.includes(p.c));
+      const pts = m.map(p => `${xPos(p.c)},${yPos(opts.modelValue(p))}`).join(" ");
+      add("polyline", { points: pts, stroke: color, class: "model-line" });
+    }
+    const rows = D.measured[tier];
+    const pts = rows.map(r => `${xPos(r.c)},${yPos(opts.value(r))}`).join(" ");
+    add("polyline", { points: pts, stroke: color, class: "data-line" });
+    rows.forEach(r => {
+      add("circle", { cx: xPos(r.c), cy: yPos(opts.value(r)), r: 4.5, fill: color, class: "marker" });
+    });
+    // selective direct label: endpoint only
+    const last = rows[rows.length - 1];
+    const lab = add("text", { x: xPos(last.c) + 9, y: yPos(opts.value(last)) + 4, class: "end-label" });
+    lab.textContent = tier;
+    series.push({ tier, color, rows });
+  }
+
+  // crosshair + tooltip (nearest discrete c)
+  const tip = document.getElementById("tooltip");
+  const cross = add("line", { y1: M.t, y2: M.t + ph, class: "crosshair", visibility: "hidden" });
+  const hit = add("rect", { x: M.l, y: M.t, width: pw, height: ph, class: "hit" });
+  hit.addEventListener("pointermove", (ev) => {
+    const rect = svg.getBoundingClientRect();
+    const sx = (ev.clientX - rect.left) / rect.width * W;
+    let bestC = CS[0], bestD = Infinity;
+    for (const c of CS) { const d = Math.abs(xPos(c) - sx); if (d < bestD) { bestD = d; bestC = c; } }
+    const x = xPos(bestC);
+    cross.setAttribute("x1", x); cross.setAttribute("x2", x);
+    cross.setAttribute("visibility", "visible");
+    tip.innerHTML = "";
+    const title = document.createElement("div");
+    title.className = "tt-title";
+    title.textContent = `块边长 c = ${bestC}`;
+    tip.appendChild(title);
+    for (const s of series) {
+      const r = s.rows.find(q => q.c === bestC);
+      const row = document.createElement("div");
+      row.className = "tt-row";
+      const key = document.createElement("span");
+      key.className = "tt-key"; key.style.background = s.color;
+      const name = document.createElement("span");
+      name.textContent = s.tier;
+      const val = document.createElement("span");
+      val.className = "tt-val";
+      val.textContent = opts.ttValue(r);
+      row.append(key, name, val);
+      tip.appendChild(row);
+    }
+    tip.style.display = "block";
+    const tw = tip.offsetWidth, th = tip.offsetHeight;
+    tip.style.left = Math.min(ev.clientX + 14, window.innerWidth - tw - 8) + "px";
+    tip.style.top = Math.max(8, Math.min(ev.clientY - th - 10, window.innerHeight - th - 8)) + "px";
+  });
+  hit.addEventListener("pointerleave", () => {
+    cross.setAttribute("visibility", "hidden");
+    tip.style.display = "none";
+  });
+}
+
+lineChart("chart1", {
+  ymin: 0, ymax: 12, yticks: [0, 2, 4, 6, 8, 10, 12],
+  threshold: 10, thresholdLabel: "10% 上限",
+  fmt: (v) => v + "%",
+  value: (r) => r.node_frac * 100,
+  modelValue: (p) => p.model_frac * 100,
+  model: true,
+  ttValue: (r) => (r.node_frac * 100).toFixed(2) + "%",
+});
+lineChart("chart2", {
+  ymin: 0, ymax: 6, yticks: [0, 1, 2, 3, 4, 5, 6],
+  threshold: 5, thresholdLabel: "5% 上限",
+  fmt: (v) => v + "%",
+  value: (r) => r.inflation_pct,
+  model: false,
+  ttValue: (r) => r.inflation_pct.toFixed(3) + "%",
+});
+
+// ---- table view ----
+const cols = ["tier", "c", "hier_nodes", "node_ratio", "inflation_pct", "hier_ms", "full_ms", "fallback"];
+const head = { tier: "距离档", c: "块边长", hier_nodes: "分层展开节点", node_ratio: "占全图比例",
+  inflation_pct: "路径增幅%", hier_ms: "分层耗时ms", full_ms: "全图耗时ms", fallback: "回退" };
+const tbl = document.getElementById("dataTable");
+tbl.innerHTML = "<thead><tr>" + cols.map(c => `<th>${head[c]}</th>`).join("") + "</tr></thead><tbody>" +
+  TIERS.flatMap(t => D.measured[t].map(r =>
+    "<tr>" + cols.map(c => {
+      if (c === "node_ratio") return `<td>${(r.node_frac * 100).toFixed(2)}%</td>`;
+      if (c === "inflation_pct") return `<td>${r.inflation_pct.toFixed(3)}</td>`;
+      if (c === "hier_ms" || c === "full_ms") return `<td>${r[c].toFixed(2)}</td>`;
+      return `<td>${r[c]}</td>`;
+    }).join("") + "</tr>")).join("") + "</tbody>";
+
+// ---- theme toggle ----
+const btn = document.getElementById("themeBtn");
+btn.addEventListener("click", () => {
+  const root = document.documentElement;
+  const dark = root.getAttribute("data-theme") === "dark";
+  root.setAttribute("data-theme", dark ? "light" : "dark");
+  btn.textContent = dark ? "切换深色" : "切换浅色";
+  // series colors are read once at build time; rebuild with new tokens
+  buildLegend("legend1", true);
+  buildLegend("legend2", false);
+  dispatchEvent(new Event("rebuild-charts"));
+});
+addEventListener("rebuild-charts", () => {
+  lineChart("chart1", {
+    ymin: 0, ymax: 12, yticks: [0, 2, 4, 6, 8, 10, 12],
+    threshold: 10, thresholdLabel: "10% 上限",
+    fmt: (v) => v + "%", value: (r) => r.node_frac * 100,
+    modelValue: (p) => p.model_frac * 100, model: true,
+    ttValue: (r) => (r.node_frac * 100).toFixed(2) + "%",
+  });
+  lineChart("chart2", {
+    ymin: 0, ymax: 6, yticks: [0, 1, 2, 3, 4, 5, 6],
+    threshold: 5, thresholdLabel: "5% 上限",
+    fmt: (v) => v + "%", value: (r) => r.inflation_pct, model: false,
+    ttValue: (r) => r.inflation_pct.toFixed(3) + "%",
+  });
+});
+</script>
+</body>
+</html>
