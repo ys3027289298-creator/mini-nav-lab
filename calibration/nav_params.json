@@ -1,0 +1,45 @@
+{
+  "map_size_m": [
+    8.0,
+    6.0
+  ],
+  "source_m": [
+    0.0,
+    0.0
+  ],
+  "goal_m": [
+    7.5,
+    5.5
+  ],
+  "old_params": {
+    "cell_size_m": 0.5,
+    "max_slope_deg": 45.0,
+    "radius_m": 0.3,
+    "smoothing_strength": 0.9,
+    "max_expansions": 200
+  },
+  "params": {
+    "cell_size_m": 0.2,
+    "max_slope_deg": 30.0,
+    "radius_m": 0.2,
+    "smoothing_strength": 0.2,
+    "max_expansions": 1200
+  },
+  "survey_inputs": {
+    "critical_gap_m": 0.6,
+    "measured_radius_m": 0.2,
+    "clearance_margin_m": 0.02,
+    "friction_mu": 0.7,
+    "friction_safety_factor": 1.15,
+    "steepest_required_ramp_deg": 26.56505117707799,
+    "accuracy_target": 0.9,
+    "length_tolerance": 0.1
+  },
+  "criteria": {
+    "gap_passability": "g_gap > 2*r",
+    "grid_gap_resolution": "h <= g_gap - 2*r  (one centre lane survives radius inflation)",
+    "slope_walkable": "theta_face <= theta_max and tan(theta_max) <= mu/S_f",
+    "smoothing_clearance": "alpha*d_mid <= d_0 - (r + m), hence alpha <= min_i(...)",
+    "expansion_capacity": "E_max >= N_cells = ceil(Lx/h)*ceil(Ly/h)"
+  }
+}
